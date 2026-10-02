@@ -1,0 +1,150 @@
+name: Build APK
+
+# 出包流程：
+#   - 每次推送到 main / 手动触发 → 构建 debug APK（无需任何密钥，开箱即用）
+#   - 打了 v* 标签            → 额外构建 release APK（需配置签名 Secrets，见文末注释）
+#
+# 产物在 Actions 运行页面的 Artifacts 区下载。
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:        # 允许在网页上手动点「Run workflow」
+
+# 同一分支的重复推送取消旧任务，避免排队浪费额度
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build ${{ matrix.variant }}
+    runs-on: ubuntu-latest        # x86-64，aapt2 在此架构上可正常运行
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - variant: debug
+            task: assembleDebug
+            artifact: jev-assistant-debug
+            path: app/build/outputs/apk/debug/*.apk
+          - variant: release
+            task: assembleRelease
+            artifact: jev-assistant-release
+            path: app/build/outputs/apk/release/*.apk
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # JDK 17 —— 与 build.gradle.kts 的 jvmTarget / compileOptions 一致
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      # compileSdk 35 需要 platforms;android-35；build-tools 由 AGP 8.7.3 自行选择
+      - name: Install SDK platform
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          # 缓存 Gradle 依赖，显著缩短后续构建
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      # local.properties 已被 .gitignore 排除（且含本机绝对路径），
+      # 在 CI 上需要用环境变量指路，否则找不到 SDK。
+      - name: Point Gradle at the SDK
+        run: echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+
+      # 单元测试独立一步：失败时能一眼看出是测试挂了还是打包挂了
+      - name: Run unit tests
+        run: ./gradlew :app:testDebugUnitTest --no-daemon --stacktrace
+
+      # 签名信息必须在构建之前注入：build.gradle.kts 在配置阶段读
+      # JEV_KEYSTORE_PROPS，晚了就来不及，产出会是未签名包。
+      # 未配置 Secrets 时走 warning 分支，release 产出未签名（装不上，仅供检查）。
+      - name: Inject release signing config
+        if: matrix.variant == 'release'
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ]; then
+            echo "::warning::未配置 KEYSTORE_BASE64，release APK 将是未签名的，无法直接安装到手机。"
+            exit 0
+          fi
+          mkdir -p "$RUNNER_TEMP/ks"
+          echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/ks/release.jks"
+          # 注意：heredoc 的结束符与内容都不能带前导空格，否则写进 properties 的
+          # 键值会多出缩进，storeFile 路径失效 → 签名配置读不到。
+          # 用 printf 逐行写，避免缩进问题。
+          printf 'storeFile=%s\n' "$RUNNER_TEMP/ks/release.jks"  >  "$RUNNER_TEMP/ks/release.properties"
+          printf 'storePassword=%s\n' "$KEYSTORE_PASSWORD"       >> "$RUNNER_TEMP/ks/release.properties"
+          printf 'keyAlias=%s\n' "$KEY_ALIAS"                    >> "$RUNNER_TEMP/ks/release.properties"
+          printf 'keyPassword=%s\n' "$KEY_PASSWORD"              >> "$RUNNER_TEMP/ks/release.properties"
+          echo "JEV_KEYSTORE_PROPS=$RUNNER_TEMP/ks/release.properties" >> "$GITHUB_ENV"
+
+      - name: Build ${{ matrix.variant }} APK
+        run: ./gradlew :app:${{ matrix.task }} --no-daemon --stacktrace
+
+      - name: Verify APK
+        run: |
+          set -e
+          APK=$(ls ${{ matrix.path }} 2>/dev/null | head -1)
+          if [ -z "$APK" ]; then
+            echo "::error::没有找到 APK 产物：${{ matrix.path }}"
+            exit 1
+          fi
+          ls -lh "$APK"
+          echo "APK 大小：$(du -h "$APK" | cut -f1)"
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: ${{ matrix.path }}
+          if-no-files-found: error
+          retention-days: 30
+
+      # 打标签时自动建 Release，方便直接下载安装
+      - name: Attach release APK to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v') && matrix.variant == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ matrix.path }}
+          generate_release_notes: true
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 配置签名（可选，一次配好长期有效）
+#
+# 1. 把已有的 keystore 转成 base64：
+#      Linux/macOS:  base64 -w0 release.jks > ks.txt
+#      Windows:      [Convert]::ToBase64String([IO.File]::ReadAllBytes("release.jks")) > ks.txt
+#
+# 2. 仓库 → Settings → Secrets and variables → Actions → New repository secret
+#       KEYSTORE_BASE64      ks.txt 的全部内容（一行，勿换行）
+#       KEYSTORE_PASSWORD    keystore 口令
+#       KEY_ALIAS            别名
+#       KEY_PASSWORD         别名口令
+#
+# 3. 之后打标签即自动出签名包：
+#      git tag v1.4 && git push origin v1.4
+#
+# 未配置时：debug APK 照常产出（用 Android 默认 debug 签名，可直接装机测试），
+#           release APK 为未签名，仅供检查产物，装不上。
+# ─────────────────────────────────────────────────────────────────────────────
