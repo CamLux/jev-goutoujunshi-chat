@@ -70,10 +70,15 @@ class MainActivity : AppCompatActivity() {
         val a11y = isA11yEnabled()
         val overlay = Settings.canDrawOverlays(this)
         val key = prefs.hasKey()   // judge route key: the one analysis cannot run without
-        val ready = a11y && overlay && key
+        // The master switch belongs in this verdict. It defaults to OFF, and when it
+        // is off every capture path returns early — so without it the card used to
+        // read "已就绪，可以用了" while the assistant was in fact doing nothing,
+        // which is exactly the state where the bubble's analyze button looks broken.
+        val on = prefs.enabled
+        val ready = a11y && overlay && key && on
 
         // Readiness card
-        container.addView(statusCard(ready, a11y, overlay, key))
+        container.addView(statusCard(ready, a11y, overlay, key, on))
         container.addView(privacyHint())
 
         // Permission checklist
@@ -107,7 +112,7 @@ class MainActivity : AppCompatActivity() {
 
     // ---------------------------------------------------------------- cards
 
-    private fun statusCard(ready: Boolean, a11y: Boolean, overlay: Boolean, key: Boolean): View {
+    private fun statusCard(ready: Boolean, a11y: Boolean, overlay: Boolean, key: Boolean, on: Boolean): View {
         val c = cardBox()
         val head = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
         head.addView(dot(if (ready) green else red).apply {
@@ -115,6 +120,9 @@ class MainActivity : AppCompatActivity() {
         })
         head.addView(text(if (ready) "已就绪，可以用了" else "尚未就绪", 16f, if (ready) green else ink, bold = true))
         c.addView(head)
+        // Listed first: with the switch off nothing else matters, and it is the one
+        // item the user can fix right here on this screen.
+        c.addView(checkLine("助手开关", on, okWord = "已开", noWord = "已关"))
         c.addView(checkLine("无障碍", a11y))
         c.addView(checkLine("悬浮窗", overlay))
         c.addView(checkLine("密钥", key, okWord = "已设", noWord = "未设"))

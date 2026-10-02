@@ -454,10 +454,26 @@ open class ChatCaptureService : AccessibilityService() {
     }
 
     private fun runAnalysis() {
-        val snapshot = pendingSnapshot ?: return
-        if (analyzing || destroyed || !prefs.enabled) return
-        val previous = session.token() ?: return
-        if (!isCurrent(previous)) return
+        // Every early exit below tells the user WHY. Silence here is what makes the
+        // bubble's "分析当前对话" look broken: the button is tappable, so a no-op
+        // reads as a bug rather than as a missing precondition. Only `analyzing`
+        // stays silent — that one is already visible as the "分析中…" panel.
+        val snapshot = pendingSnapshot
+        if (snapshot == null) {
+            overlay?.showError("还没有读到当前会话。请确认已打开聊天窗口、无障碍服务已开启，然后点「重新分析」。")
+            return
+        }
+        if (analyzing) return
+        if (destroyed) return
+        if (!prefs.enabled) {
+            overlay?.showError("助手总开关是关的：回到 App 首页打开最上面那个开关。")
+            return
+        }
+        val previous = session.token()
+        if (previous == null || !isCurrent(previous)) {
+            overlay?.showError("当前会话还不是有效目标。回到聊天窗口等标题加载出来，再点「重新分析」。")
+            return
+        }
         if (!prefs.hasKey()) { overlay?.showError("未设置判断接口密钥，去设置里填"); return }
         val token = session.begin() ?: return
         analyzing = true
