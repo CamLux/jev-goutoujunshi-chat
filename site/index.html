@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-i18n="meta.title">Jev 聊天助手 — 开源 AI 聊天辅助工具｜Android / Windows / macOS</title>
+<meta name="description" content="Jev 聊天助手提供 Android、Windows、macOS 版本。读懂屏幕上的聊天，判断意图与风险，起草候选回复；填入后由你决定是否发送。安装包、教程和交流入口在 GitHub 项目主页。" data-i18n-attr="content:meta.desc">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://chatjevs.com/">
+<link rel="alternate" hreflang="zh-CN" href="https://chatjevs.com/">
+<link rel="alternate" hreflang="en" href="https://chatjevs.com/en.html">
+<link rel="alternate" hreflang="x-default" href="https://chatjevs.com/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#fbfcfe" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1120" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chatjevs.com/">
+<meta property="og:site_name" content="Jev 聊天助手">
+<meta property="og:title" content="Jev 聊天助手 — 回消息之前，先看懂对方" data-i18n-attr="content:meta.ogTitle">
+<meta property="og:description" content="读懂对方、三条回复、一键填入。开源 MIT，Android / Windows / macOS 三端。程序只填不发。" data-i18n-attr="content:meta.ogDesc">
+<meta property="og:image" content="https://chatjevs.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Jev 聊天助手：悬浮窗给出危险等级、对方真实意图和三条候选回复" data-i18n-attr="content:meta.ogAlt">
+<meta property="og:locale" content="zh_CN" data-i18n-attr="content:meta.locale">
+<meta property="og:locale:alternate" content="en_US" data-i18n-attr="content:meta.localeAlt">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jev 聊天助手 — 回消息之前，先看懂对方" data-i18n-attr="content:meta.ogTitle">
+<meta name="twitter:description" content="读懂对方、三条回复、一键填入。开源 MIT，Android / Windows / macOS 三端。程序只填不发。" data-i18n-attr="content:meta.ogDesc">
+<meta name="twitter:image" content="https://chatjevs.com/assets/og.png">
+<script type="application/ld+json" id="site-schema">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://chatjevs.com/#author",
+      "name": "Finderchangchang",
+      "url": "https://github.com/Finderchangchang"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://chatjevs.com/#website",
+      "url": "https://chatjevs.com/",
+      "name": "Jev 聊天助手",
+      "inLanguage": [
+        "zh-CN",
+        "en"
+      ],
+      "publisher": {
+        "@id": "https://chatjevs.com/#author"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://chatjevs.com/#software",
+      "name": "Jev 聊天助手",
+      "alternateName": [
+        "Jev Chat Assistant",
+        "Jev 聊天助手"
+      ],
+      "url": "https://chatjevs.com/",
+      "description": "Jev 聊天助手（Jev Chat Assistant）是开源的 AI 聊天辅助工具，提供 Android、Windows 和 macOS 版本。它帮助你分析消息、理解意图并起草候选回复，发送前由你检查和决定。",
+      "sameAs": [
+        "https://github.com/jev-chat/jev-chat-jarvis"
+      ],
+      "author": {
+        "@id": "https://chatjevs.com/#author"
+      },
+      "applicationCategory": "CommunicationApplication",
+      "operatingSystem": [
+        "Android",
+        "Windows",
+        "macOS"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://chatjevs.com/#webpage",
+      "url": "https://chatjevs.com/",
+      "name": "Jev 聊天助手 — 开源 AI 聊天辅助工具｜Android / Windows / macOS",
+      "description": "Jev 聊天助手提供 Android、Windows、macOS 版本。读懂屏幕上的聊天，判断意图与风险，起草候选回复；填入后由你决定是否发送。安装包、教程和交流入口在 GitHub 项目主页。",
+      "inLanguage": "zh-CN",
+      "isPartOf": {
+        "@id": "https://chatjevs.com/#website"
+      },
+      "mainEntity": {
+        "@id": "https://chatjevs.com/#software"
+      }
+    }
+  ]
+}
+</script>
+<script>
+  // Theme first; each language also has a complete, crawlable static HTML page.
+  (function () {
+    var d = document.documentElement;
+    try {
+      var theme = localStorage.getItem("jev-theme");
+      if (theme === "dark" || theme === "light") d.setAttribute("data-theme", theme);
+    } catch (e) {}
+    var q = new URLSearchParams(location.search).get("lang");
+    var saved = null;
+    try { saved = localStorage.getItem("jev-lang"); } catch (e) {}
+    var isEnglishPage = /\/en\.html$/.test(location.pathname);
+    var next = q === "en" || q === "zh" ? q : (isEnglishPage ? "en" :
+      (saved === "en" || saved === "zh" ? saved : (/^zh(?:-|$)/i.test((navigator.languages && navigator.languages[0]) || navigator.language || "zh") ? "zh" : "en")));
+    if ((next === "en") !== isEnglishPage) {
+      var url = new URL(next === "en" ? "en.html" : "./", location.href);
+      url.search = location.search;
+      url.hash = location.hash;
+      location.replace(url.href);
+    }
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..800&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..800&amp;display=swap"></noscript>
+<link rel="stylesheet" href="style.css?v=20260930b">
+<script defer src="i18n.js?v=20260930b"></script>
+<script defer src="main.js?v=20260930b"></script>
+<script defer src="https://umami.jisikeji.cn/script.js" data-website-id="e294ceb6-4001-47a0-a18b-d225cd09017a"></script>
+</head>
+<body>
+
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-github" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.9l2.75 5.8 6.35.8-4.65 4.4 1.2 6.3L12 17.1l-5.65 3.1 1.2-6.3L2.9 9.5l6.35-.8z"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.8 12 15.3l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4.5 12h14M13 6.5l5.5 5.5-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M15.5 8.5V6.7a2.2 2.2 0 0 0-2.2-2.2H6.7a2.2 2.2 0 0 0-2.2 2.2v6.6a2.2 2.2 0 0 0 2.2 2.2h1.8" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.3 4.3L19 7.2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-cross" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2.6v2.4M12 19v2.4M2.6 12h2.4M19 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M18.7 5.3L17 7M7 17l-1.7 1.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="currentColor" d="M20 14.4A8.6 8.6 0 1 1 9.6 4a7 7 0 0 0 10.4 10.4z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.6c0 4.3-3 8-7.5 9.4-4.5-1.4-7.5-5.1-7.5-9.4V6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.8 12l2.3 2.3 4.1-4.6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path fill="currentColor" d="M3.4 20.1 21 12 3.4 3.9l-.1 6.3L15 12 3.3 13.8z"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 3v2.6M12 18.4V21M3 12h2.6M18.4 12H21M5.6 5.6l1.9 1.9M16.5 16.5l1.9 1.9M18.4 5.6l-1.9 1.9M7.5 16.5l-1.9 1.9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5.2v13.6L18.8 12z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path fill="currentColor" d="M7 5h3.4v14H7zM13.6 5H17v14h-3.4z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6.5" y="2.8" width="11" height="18.4" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.5 18h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="12" rx="1.8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 20h7M12 16.5V20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><path d="M5 5.5A1.5 1.5 0 0 1 6.5 4h11A1.5 1.5 0 0 1 19 5.5V15H5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M2.5 15h19l-1.4 3.1a1.7 1.7 0 0 1-1.55 1H5.45a1.7 1.7 0 0 1-1.55-1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M12 5c4.4 0 7.8 3.2 9 7-1.2 3.8-4.6 7-9 7s-7.8-3.2-9-7c1.2-3.8 4.6-7 9-7z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2.8" fill="currentColor"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 10h8M8 14h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="9.5" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.2 10.5V8a3.8 3.8 0 0 1 7.6 0v2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="15.2" r="1.5" fill="currentColor"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7.5 18.5h9.8a3.7 3.7 0 0 0 .5-7.4 5.6 5.6 0 0 0-10.8-1.3A4.4 4.4 0 0 0 7.5 18.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 6l12 12" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.8h5V7M6.5 7l.9 12.2a1.5 1.5 0 0 0 1.5 1.3h6.2a1.5 1.5 0 0 0 1.5-1.3L17.5 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M12 3.5l7.5 3.1v5.3c0 4.4-3.1 7.9-7.5 9.1-4.4-1.2-7.5-4.7-7.5-9.1V6.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M5 5.5A1.5 1.5 0 0 1 6.5 4H18v16H6.5A1.5 1.5 0 0 1 5 18.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8.5h6M9 12h6M9 15.5h3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M5 7.5h14M5 12h14M5 16.5h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="9" cy="7.5" r="2.1" fill="var(--card, #fff)" stroke="currentColor" stroke-width="1.8"/><circle cx="15" cy="12" r="2.1" fill="var(--card, #fff)" stroke="currentColor" stroke-width="1.8"/><circle cx="10" cy="16.5" r="2.1" fill="var(--card, #fff)" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-core" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="currentColor"/><circle cx="5" cy="6" r="2.1" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="19" cy="6" r="2.1" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="5" cy="18" r="2.1" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="19" cy="18" r="2.1" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M6.8 7.4l3 3M17.2 7.4l-3 3M6.8 16.6l3-3M17.2 16.6l-3-3" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H9l-5 3.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5v5.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16.3" r="1.2" fill="currentColor"/></symbol>
+</svg>
+
+<a class="skip" href="#main" data-i18n="skip">跳到主要内容</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a aria-label="Jev 聊天助手 首页" class="brand" href="#top" data-i18n-attr="aria-label:a.brand">
+      <img src="assets/favicon.svg" alt="" width="28" height="28">
+      <span class="brand-name" data-i18n="brand.name">Jev 聊天助手</span>
+    </a>
+
+    <nav aria-label="主导航" class="menu" id="navMenu" data-i18n-attr="aria-label:a.nav">
+      <a href="#read" data-i18n="nav.read">先看懂</a>
+      <a href="#how" data-i18n="nav.how">怎么工作</a>
+      <a href="#privacy" data-i18n="nav.privacy">数据去向</a>
+      <a href="#apps" data-i18n="nav.apps">支持的 App</a>
+      <a href="#start" data-i18n="nav.start">开始使用</a>
+      <a href="#faq" data-i18n="nav.faq">常见问题</a>
+    </nav>
+
+    <div class="nav-act">
+      <button aria-label="Switch to English" class="lang-btn" id="langBtn" type="button" data-i18n-attr="aria-label:a.lang"><span class="l-zh">中</span><span class="l-sep" aria-hidden="true">/</span><span class="l-en">EN</span></button>
+      <button title="切换深浅色" aria-label="切换深浅色" class="icon-btn" id="themeBtn" type="button" data-i18n-attr="aria-label:a.theme;title:a.theme">
+        <svg class="ico-sun" width="18" height="18" aria-hidden="true"><use href="#i-sun"/></svg>
+        <svg class="ico-moon" width="18" height="18" aria-hidden="true"><use href="#i-moon"/></svg>
+      </button>
+      <a class="btn btn-primary btn-sm nav-dl" href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="nav" data-umami-event-intent="get">
+        <svg width="16" height="16" aria-hidden="true"><use href="#i-github"/></svg><span data-i18n="nav.dl">前往 GitHub 获取 Jev</span>
+      </a>
+      <button aria-label="打开菜单" class="icon-btn burger" id="burger" type="button" aria-expanded="false" aria-controls="navMenu" data-i18n-attr="aria-label:a.menuOpen">
+        <svg width="20" height="20" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ===================== 首屏：一句话 + 会动的悬浮窗演示 ===================== -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="dot-live" aria-hidden="true"></span><span data-i18n="hero.eyebrow">开源 · MIT · Android / Windows / macOS</span></p>
+      <h1 id="hero-title" data-i18n="hero.title">回消息之前，<br><span class='hl'>先看懂对方</span></h1>
+      <p class="hero-sub" data-i18n="hero.sub">Jev 聊天助手是你的对话副驾：读懂屏幕上的聊天，给出意图和危险等级，起草候选回复并填进输入框。发不发，由你。支持 Android、Windows 和 macOS。</p>
+
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="hero" data-umami-event-intent="get">
+          <svg width="19" height="19" aria-hidden="true"><use href="#i-github"/></svg><span data-i18n="hero.dl">前往 GitHub 获取 Jev</span>
+        </a>
+      </div>
+      <p class="hero-meta" data-i18n="hero.meta">安装包、使用教程和各平台入口，统一在 GitHub 项目主页。选择适合你的平台。</p>
+
+      <p class="hero-note"><svg width="18" height="18" aria-hidden="true"><use href="#i-shield"/></svg><span data-i18n="hero.note">程序只把回复填进输入框，从不自动发送，不碰转账 / 红包 / 收款。<a href='#privacy'>聊天内容去了哪里</a></span></p>
+    </div>
+
+    <figure aria-label="演示：Jev 悬浮窗怎么帮你回一条消息" class="demo" id="demo" data-step="4" data-i18n-attr="aria-label:demo.aria">
+      <p class="sr" data-i18n="demo.sr">演示动画：对方发来「你根本就不懂我」。Jev 悬浮窗判断危险 8/9、很危险，对方真实意图是确认你在不在乎，建议接住情绪、先别给实质；随后给出三条排好序的候选回复。点第 1 条的「填入」，回复进入输入框，发送键由你自己按。</p>
+      <div class="demo-stage">
+        <div class="phone" aria-hidden="true">
+          <div class="ph-screen">
+            <div class="ph-status"><span>9:41</span><span class="ph-sys"><i></i><i></i><i></i></span></div>
+            <div class="ph-head">
+              <svg class="ph-back" width="18" height="18"><use href="#i-back"/></svg>
+              <span class="ph-av"></span>
+              <span class="ph-name" data-i18n="demo.chatName">对象</span>
+              <span class="ph-more">···</span>
+            </div>
+            <div class="ph-chat">
+              <p class="msg me" data-i18n="demo.m1">这周末我约了朋友打球</p>
+              <p class="msg them" data-i18n="demo.m2">上周末你也不在</p>
+              <p class="msg them m-new" data-i18n="demo.m3">你根本就不懂我</p>
+            </div>
+
+            <div class="ph-ball"><span>Jev</span><i class="ph-dot"></i></div>
+
+            <div class="jp">
+              <div class="jp-head"><b data-i18n="demo.panelTitle">Jev 分析</b><span class="jp-ic"><svg width="15" height="15"><use href="#i-gear"/></svg><svg width="15" height="15"><use href="#i-cross"/></svg></span></div>
+              <div class="jp-body">
+                <p class="jp-hint" data-i18n="demo.kb">未用知识库</p>
+                <p class="jp-badge"><span class="jp-lvl" data-i18n="demo.badge">危险 8/9</span><span class="jp-word" data-i18n="demo.word">很危险</span></p>
+                <p class="jp-intent" data-i18n="demo.intent">对方真实意图：确认你在不在乎</p>
+                <p class="jp-hint jp-conf" data-i18n="demo.conf">把握 82%</p>
+                <p class="jp-bits" data-i18n="demo.bits">要你的在乎 · 接住情绪 · 先别给实质</p>
+                <div class="jp-div"></div>
+                <p class="jp-label" data-i18n="demo.listLabel">候选回复（Jev 排序）</p>
+                <p class="jp-hint jp-gen" data-i18n="demo.gen">生成中…</p>
+                <div class="jp-card jp-r1">
+                  <p class="jp-rank">1 · 64%</p>
+                  <p class="jp-text" data-i18n="demo.r1">是我没顾上你的感受，你愿意跟我说说吗？</p>
+                  <p class="jp-pills"><span class="jp-pill" data-i18n="demo.copy">复制</span><span class="jp-pill jp-fill" data-i18n="demo.fill">填入</span><i class="jp-tap"></i></p>
+                </div>
+                <div class="jp-card jp-r2">
+                  <p class="jp-rank">2 · 24%</p>
+                  <p class="jp-text" data-i18n="demo.r2">对不起，刚才是我语气不好</p>
+                  <p class="jp-pills"><span class="jp-pill" data-i18n="demo.copy">复制</span><span class="jp-pill jp-fill" data-i18n="demo.fill">填入</span></p>
+                </div>
+                <div class="jp-card jp-r3">
+                  <p class="jp-rank">3 · 12%</p>
+                  <p class="jp-text" data-i18n="demo.r3">那你说说我哪里不懂你</p>
+                  <p class="jp-pills"><span class="jp-pill" data-i18n="demo.copy">复制</span><span class="jp-pill jp-fill" data-i18n="demo.fill">填入</span></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="ph-input">
+              <div class="ph-field"><span class="ph-ph" data-i18n="demo.placeholder">输入消息</span><span class="ph-typed" data-i18n="demo.r1">是我没顾上你的感受，你愿意跟我说说吗？</span><i class="ph-caret"></i></div>
+              <span class="ph-send"><svg width="17" height="17"><use href="#i-send"/></svg></span>
+            </div>
+            <div class="ph-home"></div>
+          </div>
+        </div>
+
+        <div class="demo-note" id="demoNote" aria-live="off">
+          <span class="dn-no" id="demoNoteNo">04</span>
+          <p class="dn-text" id="demoNoteText" data-i18n="demo.n4">点「填入」，回复进输入框。<b>发送键不动</b>，发不发、怎么改，由你决定。</p>
+        </div>
+      </div>
+
+      <div class="demo-ctl">
+        <ol aria-label="演示步骤，点一步可以停在那里" class="demo-steps" data-i18n-attr="aria-label:a.demoSteps">
+          <li><button type="button" data-go="1"><span class="ds-bar"><i></i></span><span class="ds-t"><b>1</b><span data-i18n="demo.s1">消息进来</span></span></button></li>
+          <li><button type="button" data-go="2"><span class="ds-bar"><i></i></span><span class="ds-t"><b>2</b><span data-i18n="demo.s2">看懂意图</span></span></button></li>
+          <li><button type="button" data-go="3"><span class="ds-bar"><i></i></span><span class="ds-t"><b>3</b><span data-i18n="demo.s3">三条候选</span></span></button></li>
+          <li><button type="button" data-go="4"><span class="ds-bar"><i></i></span><span class="ds-t"><b>4</b><span data-i18n="demo.s4">由你发送</span></span></button></li>
+        </ol>
+        <button class="demo-toggle" id="demoToggle" type="button" hidden>
+          <svg class="ico-pause" width="14" height="14" aria-hidden="true"><use href="#i-pause"/></svg>
+          <svg class="ico-play" width="14" height="14" aria-hidden="true"><use href="#i-play"/></svg>
+          <span id="demoToggleLabel" data-i18n="demo.pause">暂停演示</span>
+        </button>
+      </div>
+      <figcaption class="demo-cap" data-i18n="demo.cap">演示动画，对话为模拟；悬浮窗按 App 源码还原。</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap"><div class="works">
+    <p class="works-label" data-i18n="hero.works">已跑通</p>
+    <ul class="works-list">
+      <li class="ok" data-i18n="app.qq">QQ</li>
+      <li class="ok" data-i18n="app.x">X（Twitter）</li>
+      <li class="ocr" data-i18n="app.lark">飞书（OCR 兜底）</li>
+      <li class="ocr" data-i18n="app.any">任意 App（手动 OCR）</li>
+      <li class="plan" data-i18n="app.web">网页端（规划中）</li>
+    </ul>
+  </div></div>
+</section>
+
+<section class="product-facts" id="about" aria-labelledby="facts-title">
+  <div class="wrap">
+    <h2 id="facts-title" data-i18n="facts.title">Jev 聊天助手是什么？</h2>
+    <p class="facts-intro" data-i18n="facts.desc">Jev 聊天助手（Jev Chat Assistant）是开源的 AI 聊天辅助工具，提供 Android、Windows 和 macOS 版本。它帮助你分析消息、理解意图并起草候选回复，发送前由你检查和决定。</p>
+    <dl class="facts-grid">
+      <div><dt data-i18n="facts.use.label">适合什么需求</dt><dd data-i18n="facts.use">需要斟酌措辞、理解对话语气或获得回复思路的个人用户；判断结果仅供参考。</dd></div>
+      <div><dt data-i18n="facts.scope.label">平台与功能范围</dt><dd data-i18n="facts.scope">三端独立维护。本页的无障碍读屏、ML Kit OCR、权限设置和聊天 App 兼容性说明以 Android 版为准；桌面端功能以各自项目说明为准。</dd></div>
+      <div><dt data-i18n="facts.cost.label">费用与使用条件</dt><dd data-i18n="facts.cost">Android 项目采用 MIT 许可，软件免费开源；模型接口使用你自己的 API Key，可能产生服务商费用。桌面端许可与要求见对应项目。</dd></div>
+    </dl>
+    <p class="facts-source" data-i18n="facts.source">项目发布者：<a href='https://github.com/Finderchangchang' rel='noopener' target='_blank'>Finderchangchang</a>。安装包、各平台说明与更新请查看 <a href='https://github.com/jev-chat/jev-chat-jarvis' target='_blank' rel='noopener' data-umami-event='go-main-repo' data-umami-event-pos='facts' data-umami-event-intent='get'>GitHub 项目主页</a>。</p>
+  </div>
+</section>
+
+
+<!-- ===================== 01 先看懂 ===================== -->
+<section class="sec" id="read" aria-labelledby="read-title">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><b>01</b><span data-i18n="read.kicker">先看懂</span></p>
+      <h2 id="read-title" data-i18n="read.title">同一个「嗯」，意思可能完全相反</h2>
+      <p class="lead" data-i18n="read.lead">大多数助手直接给你一段话。Jev 先判断这条消息到底是什么，再决定怎么回。</p>
+    </header>
+
+    <div class="mm-grid">
+      <article class="mm mm-safe rv">
+        <p class="mm-ctx" data-i18n="read.ctx">前情</p>
+        <div class="mm-chat">
+          <p class="bub me" data-i18n="read.a.me">今晚加班，晚点到家</p>
+          <p class="bub them bub-hm" data-i18n="read.hm">嗯</p>
+        </div>
+        <div class="mm-read">
+          <div class="meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on cur"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <p class="mm-badge"><span class="lvl" data-i18n="read.a.lvl">危险 2/9</span><span class="word" data-i18n="read.a.word">安全</span></p>
+          <p class="mm-intent"><span class="k" data-i18n="read.intentK">对方真实意图</span><b data-i18n="read.a.intent">随便聊聊</b></p>
+          <p class="mm-needs" data-i18n="read.a.needs">要（不用做什么）</p>
+        </div>
+      </article>
+
+      <p class="mm-vs" aria-hidden="true">≠</p>
+
+      <article class="mm mm-risk rv">
+        <p class="mm-ctx" data-i18n="read.ctx">前情</p>
+        <div class="mm-chat">
+          <p class="bub me" data-i18n="read.b.me">纪念日我给忘了，明天补上</p>
+          <p class="bub them bub-hm" data-i18n="read.hm">嗯</p>
+        </div>
+        <div class="mm-read">
+          <div class="meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on cur"></i><i></i><i></i></div>
+          <p class="mm-badge"><span class="lvl" data-i18n="read.b.lvl">危险 7/9</span><span class="word" data-i18n="read.b.word">偏危险</span></p>
+          <p class="mm-intent"><span class="k" data-i18n="read.intentK">对方真实意图</span><b data-i18n="read.b.intent">确认你在不在乎</b></p>
+          <p class="mm-needs" data-i18n="read.b.needs">要道歉 · 先道歉</p>
+        </div>
+      </article>
+    </div>
+    <p class="mm-note rv" data-i18n="read.note">演示场景，对话为模拟。</p>
+
+    <div class="jq rv">
+      <div class="jq-head">
+        <h3 data-i18n="jq.title">Jev 判断模型不写字，只在固定选项里选</h3>
+        <p data-i18n="jq.lead">一次请求问 7 道题：真实意图、危险等级（0–9）、对方要什么、该不该马上回、下一步怎么做等，都带概率和把握度，约 1 秒出结果。回复由生成模型另写。</p>
+      </div>
+      <ol class="jq-list">
+        <li><span class="jq-type t-choice" data-i18n="jq.choice">选择</span><h4 data-i18n="jq.i1.n">真实意图</h4><p data-i18n="jq.i1.o">确认你在不在乎 · 在发泄情绪 · 要你办事 · 要个解释 · 随便聊聊 · 事情过去了</p></li>
+        <li><span class="jq-type t-score" data-i18n="jq.score">打分</span><h4 data-i18n="jq.i2.n">危险等级</h4><p data-i18n="jq.i2.o">0 是轻松闲聊，9 是已经闹翻；悬浮窗按分数标出安全、留神、偏危险、很危险</p></li>
+        <li><span class="jq-type t-choice" data-i18n="jq.choice">选择</span><h4 data-i18n="jq.i3.n">对方要什么</h4><p data-i18n="jq.i3.o">道歉 · 具体行动 · 解释 · 你的在乎 · 不用做什么</p></li>
+        <li><span class="jq-type t-yn" data-i18n="jq.yesno">是非</span><h4 data-i18n="jq.i4.n">该不该马上回</h4><p data-i18n="jq.i4.o">下一句该不该给实质内容；悬浮窗里写作「可给实质」或「先别给实质」</p></li>
+        <li><span class="jq-type t-choice" data-i18n="jq.choice">选择</span><h4 data-i18n="jq.i5.n">下一步怎么做</h4><p data-i18n="jq.i5.o">翻聊天记录 · 先道歉 · 给承诺 · 解释清楚 · 接住情绪 · 少说两句 · 定个安排</p></li>
+        <li><span class="jq-type t-yn" data-i18n="jq.yesno">是非</span><h4 data-i18n="jq.i6.n">话里有没有话</h4><p data-i18n="jq.i6.o">是字面意思，还是在试探、反讽、暗示</p></li>
+        <li><span class="jq-type t-yn" data-i18n="jq.yesno">是非</span><h4 data-i18n="jq.i7.n">紧张缓和了没</h4><p data-i18n="jq.i7.o">对方已经接受、又开起玩笑，还是还在等你表态</p></li>
+      </ol>
+    </div>
+
+    <div class="cmp rv">
+      <div class="cmp-head">
+        <h3 data-i18n="cmp.title">和其他做法比</h3>
+        <p data-i18n="cmp.lead">同样是「帮你回消息」，差别在读得到多少、判不判断，以及谁按发送。</p>
+      </div>
+      <div class="table-scroll" tabindex="0" role="region" aria-labelledby="cmp-cap">
+        <table class="cmp-table">
+          <caption class="sr" id="cmp-cap" data-i18n="cmp.title">和其他做法比</caption>
+          <thead>
+            <tr>
+              <th scope="col" data-i18n="cmp.h0">能力</th>
+              <th scope="col" class="us" data-i18n="cmp.h1">Jev 聊天助手</th>
+              <th scope="col" data-i18n="cmp.h2">输入法 / App 自带 AI 回复</th>
+              <th scope="col" data-i18n="cmp.h3">通用聊天机器人（复制粘贴）</th>
+              <th scope="col" data-i18n="cmp.h4">自动回复机器人</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row" data-i18n="cmp.r1">先判断再写</th><td class="us"><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">有</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">没有</span></td><td><span class="mk p" data-i18n="cmp.part">部分</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">没有</span></td></tr>
+            <tr><th scope="row" data-i18n="cmp.r2">任意聊天 App 都能读</th><td class="us"><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">有</span></td><td><span class="mk p" data-i18n="cmp.part">部分</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">没有</span></td><td><span class="mk p" data-i18n="cmp.part">部分</span></td></tr>
+            <tr><th scope="row" data-i18n="cmp.r3">非侵入，不改客户端</th><td class="us"><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">有</span></td><td><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">有</span></td><td><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">有</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">没有</span></td></tr>
+            <tr><th scope="row" data-i18n="cmp.r4">发送由你按</th><td class="us"><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">有</span></td><td><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">有</span></td><td><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">有</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">没有</span></td></tr>
+            <tr><th scope="row" data-i18n="cmp.r5">知识库 + 联系人上下文</th><td class="us"><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">有</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">没有</span></td><td><span class="mk p" data-i18n="cmp.part">部分</span></td><td><span class="mk p" data-i18n="cmp.part">部分</span></td></tr>
+            <tr><th scope="row" data-i18n="cmp.r6">接口 / 模型自选</th><td class="us"><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">有</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">没有</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">没有</span></td><td><span class="mk p" data-i18n="cmp.part">部分</span></td></tr>
+            <tr><th scope="row" data-i18n="cmp.r7">开源免费</th><td class="us"><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">有</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">没有</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">没有</span></td><td><span class="mk p" data-i18n="cmp.part">部分</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fine" data-i18n="cmp.foot">对比按公开可得的常见形态归纳，不针对任何具体产品。</p>
+    </div>
+
+    <p class="sec-next rv"><a class="link-arrow" href="#how"><span data-i18n="read.next">接下来：看它怎么工作</span><svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+  </div>
+</section>
+
+<!-- ===================== 02 怎么工作 ===================== -->
+<section class="sec sec-tint" id="how" aria-labelledby="how-title">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><b>02</b><span data-i18n="how.kicker">怎么工作</span></p>
+      <h2 id="how-title" data-i18n="how.title">从屏幕上的一条消息，到输入框里的一句话</h2>
+      <p class="lead" data-i18n="how.lead">中间只有这几步。实心的在你手机上完成，虚线的发往你自己配置的接口。</p>
+    </header>
+
+    <div class="flow-wrap rv">
+      <p class="flow-legend"><span class="lg lg-local"><i></i><span data-i18n="how.local">在你手机上</span></span><span class="lg lg-remote"><i></i><span data-i18n="how.remote">发往你配置的接口</span></span></p>
+      <ol class="flow">
+        <li class="fn local"><span class="fn-no">1</span><h3 data-i18n="how.n1.t">采集屏幕消息</h3><p data-i18n="how.n1.d">无障碍服务读当前对话；读不到就截屏，用离线 OCR 认字</p></li>
+        <li class="fn remote"><span class="fn-no">2</span><h3 data-i18n="how.n2.t">Jev 判断</h3><p data-i18n="how.n2.d">意图 · 危险等级 0–9 · 该不该马上回</p></li>
+        <li class="fn remote"><span class="fn-no">3</span><h3 data-i18n="how.n3.t">生成模型起草</h3><p data-i18n="how.n3.d">3 条口语化候选：稳妥接话、给出行动或承诺、简短表态各一条；默认经 OpenRouter 调用 DeepSeek</p></li>
+        <li class="fn remote"><span class="fn-no">4</span><h3 data-i18n="how.n4.t">Jev 排序</h3><p data-i18n="how.n4.d">按合适程度重排，标出概率</p></li>
+        <li class="fn local"><span class="fn-no">5</span><h3 data-i18n="how.n5.t">悬浮窗展示</h3><p data-i18n="how.n5.d">判断结论 + 三条候选，就在对话旁边</p></li>
+        <li class="fn local fn-end"><span class="fn-no">6</span><h3 data-i18n="how.n6.t">复制 / 填入</h3><p data-i18n="how.n6.d"><strong>不发送</strong>，发送那一下由你按</p></li>
+      </ol>
+    </div>
+
+    <div class="feat-grid">
+      <article class="feat rv"><span class="feat-ico"><svg width="22" height="22" aria-hidden="true"><use href="#i-book"/></svg></span><h3 data-i18n="how.f1.t">知识库与关联上下文</h3><p data-i18n="how.f1.d">本地维护笔记和联系人档案（关系、别名、备注）。笔记分两种：常驻的每次都带，其余按标签或标题匹配当前对话自动命中；开启历史后再带上这个人近期的聊天。回复口径与知识库一致，不编造知识库外的内容。联系人可跨 App 关联。</p></article>
+      <article class="feat rv"><span class="feat-ico"><svg width="22" height="22" aria-hidden="true"><use href="#i-scan"/></svg></span><h3 data-i18n="how.f2.t">读不到就 OCR</h3><p data-i18n="how.f2.d">控件树里没有正文时自动截屏，用 ML Kit 中文离线识别，不上传图片、不需要 Google 服务。任何 App 都能在悬浮窗菜单里手动「截屏识别一次」。</p></article>
+      <article class="feat rv"><span class="feat-ico"><svg width="22" height="22" aria-hidden="true"><use href="#i-plug"/></svg></span><h3 data-i18n="how.f3.t">接口全可配</h3><p data-i18n="how.f3.d">判断 / 回复 / 视觉三路接口的地址、密钥、模型分别可填。内置 OpenRouter、博查 Jev、TypeSafe 直连、DeepSeek 官方、通义兼容预设，各自一键连通测试。只填一把 OpenRouter 密钥就能用。</p></article>
+      <article class="feat rv"><span class="feat-ico"><svg width="22" height="22" aria-hidden="true"><use href="#i-core"/></svg></span><h3 data-i18n="how.f4.t">一套内核，多平台</h3><p data-i18n="how.f4.d">判断、候选、排序、填入都在同一个内核里。新增一个 App 只需要实现一个几十行的适配器，其余全部复用。</p></article>
+    </div>
+
+    <p class="sec-next rv"><a class="link-arrow" href="#privacy"><span data-i18n="how.next">接下来：聊天内容去了哪里</span><svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+  </div>
+</section>
+
+<!-- ===================== 03 数据去向 ===================== -->
+<section class="sec" id="privacy" aria-labelledby="priv-title">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><b>03</b><span data-i18n="priv.kicker">数据去向</span></p>
+      <h2 id="priv-title" data-i18n="priv.title">它读你的聊天，所以先把话说清楚</h2>
+      <p class="lead" data-i18n="priv.lead">这不是一个「什么都不收集」的产品：聊天文字确实会发给一个模型接口，只是那个地址由你自己填。除此之外的数据都留在你手机里。</p>
+    </header>
+
+    <div class="bound rv">
+      <div class="bd-box bd-phone">
+        <p class="bd-h"><svg width="20" height="20" aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="priv.d.phone">你的手机</span></p>
+        <ul>
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#i-eye"/></svg><span data-i18n="priv.d.p1">读屏幕上正在显示的对话</span></li>
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#i-scan"/></svg><span data-i18n="priv.d.p2">截图只在本机 OCR，不上传</span></li>
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#i-lock"/></svg><span data-i18n="priv.d.p3">密钥、知识库、历史（默认关）只存本机</span></li>
+        </ul>
+      </div>
+      <div class="bd-link">
+        <p class="bd-when" data-i18n="priv.d.when">只在分析那一刻</p>
+        <span class="bd-arrow" aria-hidden="true"></span>
+        <p class="bd-what" data-i18n="priv.d.what">当前对话的近 10 条消息 + 你填的关系描述；开了知识库、历史，才带上命中的笔记和这个人的历史</p>
+      </div>
+      <div class="bd-box bd-api">
+        <p class="bd-h"><svg width="20" height="20" aria-hidden="true"><use href="#i-cloud"/></svg><span data-i18n="priv.d.api">你配置的模型接口</span></p>
+        <p class="bd-list" data-i18n="priv.d.apiList">OpenRouter · 博查 Jev · TypeSafe · DeepSeek · 通义 · 任意 OpenAI 兼容地址</p>
+      </div>
+      <div class="bd-box bd-none">
+        <p class="bd-h"><svg width="20" height="20" aria-hidden="true"><use href="#i-ban"/></svg><s data-i18n="priv.d.none">作者的服务器</s></p>
+        <p data-i18n="priv.d.noneD">没有这一环：作者不架设服务器、不经手</p>
+      </div>
+    </div>
+
+    <dl class="qa rv">
+      <div class="qa-row"><dt><svg width="18" height="18" aria-hidden="true"><use href="#i-eye"/></svg><span data-i18n="priv.q1">读了什么</span></dt><dd data-i18n="priv.a1">只读屏幕上正在显示的对话，用的是系统无障碍服务。不改任何 App 的安装包，不走它们的接口或账号，不读数据库。可以设会话白名单，也可以关掉自动分析，只在你点的时候读。</dd></div>
+      <div class="qa-row"><dt><svg width="18" height="18" aria-hidden="true"><use href="#i-cloud"/></svg><span data-i18n="priv.q2">发给谁</span></dt><dd data-i18n="priv.a2">只在判断那一刻，发给你自己配置的接口。作者不架设服务器、不经手。服务商拿到内容后怎么处理，以它们自己的隐私政策为准。</dd></div>
+      <div class="qa-row"><dt><svg width="18" height="18" aria-hidden="true"><use href="#i-lock"/></svg><span data-i18n="priv.q3">存在哪</span></dt><dd data-i18n="priv.a3">密钥只存在 App 私有空间。聊天内容发完不落盘、不进日志。历史记录默认关闭，开了也只存本机。OCR 走 ML Kit 中文离线识别，图片不上传。</dd></div>
+      <div class="qa-row"><dt><svg width="18" height="18" aria-hidden="true"><use href="#i-trash"/></svg><span data-i18n="priv.q4">怎么删</span></dt><dd data-i18n="priv.a4">设置页「清空知识库与历史」一键删除；卸载应用会连同密钥、设置一起清空，没有云端备份。</dd></div>
+      <div class="qa-row"><dt><svg width="18" height="18" aria-hidden="true"><use href="#i-hand"/></svg><span data-i18n="priv.q5">从不做什么</span></dt><dd data-i18n="priv.a5">从不自动发送；不碰转账、红包、收款；无广告、无第三方统计 SDK。</dd></div>
+    </dl>
+
+    <div class="priv-cta rv">
+      <a class="btn btn-ghost" href="privacy.html" data-privacy-link data-umami-event="view-privacy" data-umami-event-pos="privacy"><svg width="18" height="18" aria-hidden="true"><use href="#i-shield"/></svg><span data-i18n="priv.cta">读完整隐私政策</span></a>
+      <p class="fine" data-i18n="priv.src">每一条都可以在 GitHub 仓库里对照源码核实。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 04 支持的 App ===================== -->
+<section class="sec sec-tint" id="apps" aria-labelledby="apps-title">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><b>04</b><span data-i18n="apps.kicker">支持的 App</span></p>
+      <h2 id="apps-title" data-i18n="apps.title">在这些 App 里跑通了</h2>
+      <p class="lead" data-i18n="apps.lead">真机实测为准，版本号是验证时的版本。</p>
+    </header>
+
+    <div class="apps-grid">
+      <div class="apps-main rv">
+        <div class="apps-top">
+          <p class="plat"><svg width="22" height="22" aria-hidden="true"><use href="#i-phone"/></svg><b>Android</b><span class="ver">v1.4</span></p>
+        </div>
+        <table class="st">
+          <thead><tr><th scope="col" data-i18n="apps.h1">App</th><th scope="col" data-i18n="apps.h2">状态</th><th scope="col" data-i18n="apps.h3">说明</th></tr></thead>
+          <tbody>
+            <tr><th scope="row" data-i18n="apps.qq">QQ Android</th><td><span class="state ok" data-i18n="apps.qq.s">全链路</span></td><td data-i18n="apps.qq.d">9.3.50 实测</td></tr>
+            <tr><th scope="row" data-i18n="apps.x">X / Twitter 私信</th><td><span class="state ok" data-i18n="apps.x.s">全链路</span></td><td data-i18n="apps.x.d">12.25 实测，中文界面</td></tr>
+            <tr><th scope="row" data-i18n="apps.lark">飞书 / Lark</th><td><span class="state ocr" data-i18n="apps.lark.s">OCR 兜底</span></td><td data-i18n="apps.lark.d">真机验证，正文离线 OCR</td></tr>
+            <tr><th scope="row" data-i18n="apps.any">任意其它 App</th><td><span class="state ocr" data-i18n="apps.any.s">手动识别</span></td><td data-i18n="apps.any.d">悬浮窗菜单「截屏识别一次」</td></tr>
+            <tr><th scope="row" data-i18n="apps.web">网页端</th><td><span class="state plan" data-i18n="apps.web.s">规划中</span></td><td data-i18n="apps.web.d">目前还没有网页版</td></tr>
+            <tr><th scope="row" data-i18n="apps.ios">iOS</th><td><span class="state no" data-i18n="apps.ios.s">暂不支持</span></td><td data-i18n="apps.ios.d">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 05 开始使用 ===================== -->
+<section class="sec" id="start" aria-labelledby="start-title">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><b>05</b><span data-i18n="start.kicker">开始使用</span></p>
+      <h2 id="start-title" data-i18n="start.title">三端获取 Jev</h2>
+      <p class="lead" data-i18n="start.lead">选择适合你的平台。安装包、使用教程和更新信息都能在 GitHub 项目主页找到。</p>
+    </header>
+
+    <div class="platform-grid">
+      <article class="platform-card rv">
+        <p class="plat"><svg width="20" height="20" aria-hidden="true"><use href="#i-phone"/></svg><b>Android</b><span class="ver">v1.4</span></p>
+        <p data-i18n="platform.android.d">手机上的对话副驾，读懂消息、给出候选回复并填入输入框。</p>
+        <p class="req" data-i18n="platform.android.req">Android 11+ · arm64-v8a</p>
+        <a class="btn btn-primary" href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="platform" data-umami-event-intent="android"><svg width="18" height="18" aria-hidden="true"><use href="#i-github"/></svg><span data-i18n="hero.dl">前往 GitHub 获取 Jev</span></a>
+      </article>
+      <article class="platform-card rv">
+        <p class="plat"><svg width="20" height="20" aria-hidden="true"><use href="#i-monitor"/></svg><b>Windows</b><span class="ver">v0.1.11</span></p>
+        <p data-i18n="apps.win.d">截自己的聊天窗口 + 本地离线 OCR，不改客户端、不读数据库。</p>
+        <p class="req" data-i18n="apps.win.req">Windows 10 1903+ / 11</p>
+        <a class="btn btn-primary" href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="platform" data-umami-event-intent="windows"><svg width="18" height="18" aria-hidden="true"><use href="#i-github"/></svg><span data-i18n="hero.dl">前往 GitHub 获取 Jev</span></a>
+      </article>
+      <article class="platform-card rv">
+        <p class="plat"><svg width="20" height="20" aria-hidden="true"><use href="#i-laptop"/></svg><b>macOS</b><span class="ver">v0.6.0</span></p>
+        <p data-i18n="apps.mac.d">看屏 + 本地小模型判断意图与风险等级，按话术生成候选并本地排序。</p>
+        <p class="req" data-i18n="apps.mac.req">Apple Silicon · macOS 13+</p>
+        <a class="btn btn-primary" href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="platform" data-umami-event-intent="macos"><svg width="18" height="18" aria-hidden="true"><use href="#i-github"/></svg><span data-i18n="hero.dl">前往 GitHub 获取 Jev</span></a>
+      </article>
+    </div>
+    <p class="platform-star"><span data-i18n="platform.star">如果项目对你有帮助，欢迎在 GitHub 项目主页点一个 Star，支持后续维护。</span> <b data-jev-stars>6.7k</b> Star</p>
+    <h3 class="install-title" data-i18n="start.steps">Android 安装与设置</h3>
+
+    <ol class="steps">
+      <li class="step rv">
+        <span class="step-no">1</span>
+        <h3 data-i18n="s1.t">装包</h3>
+        <p data-i18n="s1.d">在 GitHub 项目主页获取 APK 后安装，Android 11+，仅支持 arm64-v8a 机型。也可以用 adb：</p>
+        <div class="code">
+          <pre id="adbCmd">adb install -r jev-assistant-v1.4-release.apk</pre>
+          <button aria-label="复制安装命令" class="code-copy" type="button" data-copy-from="#adbCmd" data-umami-event="copy-adb" data-i18n-attr="aria-label:a.copy">
+            <svg class="ico-copy" width="15" height="15" aria-hidden="true"><use href="#i-copy"/></svg><svg class="ico-done" width="15" height="15" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="ui.copy">复制</span>
+          </button>
+        </div>
+        <a class="btn btn-primary" href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="start" data-umami-event-intent="android"><svg width="18" height="18" aria-hidden="true"><use href="#i-github"/></svg><span data-i18n="hero.dl">前往 GitHub 获取 Jev</span></a>
+        <p class="fine" data-i18n="s1.note">从旧版升级后，把系统设置里的无障碍开关关掉再打开一次，服务才会重新生效。</p>
+      </li>
+
+      <li class="step rv">
+        <span class="step-no">2</span>
+        <h3 data-i18n="s2.t">填密钥</h3>
+        <p data-i18n="s2.d">设置 → 接口 → 判断接口填 OpenRouter API Key，其余留空会自动继承。三路接口都能一键测连通。</p>
+        <div class="sch" aria-hidden="true">
+          <span class="sch-tag" data-i18n="sch.tag">示意</span>
+          <div class="sch-row sch-on"><span class="sch-k" data-i18n="sch.judge">判断接口（Jev）</span><span class="sch-v" data-i18n="sch.judgeV">OpenRouter · sk-or-••••</span><span class="sch-btn" data-i18n="sch.test">测连通</span></div>
+          <div class="sch-row"><span class="sch-k" data-i18n="sch.reply">回复接口</span><span class="sch-v sch-mute" data-i18n="sch.inherit">留空则继承</span><span class="sch-btn" data-i18n="sch.test">测连通</span></div>
+          <div class="sch-row"><span class="sch-k" data-i18n="sch.vision">视觉接口</span><span class="sch-v sch-mute" data-i18n="sch.inherit">留空则继承</span><span class="sch-btn" data-i18n="sch.test">测连通</span></div>
+        </div>
+        <p class="fine" data-i18n="s2.tip">判断接口也可以选「博查 Jev」预设，当前限时免费，key 在 <a href='https://jev.bocha.cn' target='_blank' rel='noopener'>jev.bocha.cn</a> 领。</p>
+      </li>
+
+      <li class="step rv">
+        <span class="step-no">3</span>
+        <h3 data-i18n="s3.t">开权限</h3>
+        <p data-i18n="s3.d">无障碍、悬浮窗、自启动 + 省电无限制。小米 / HyperOS 上后两项必做，否则气泡会被冻掉。</p>
+        <ul class="perm">
+          <li><span data-i18n="s3.p1">无障碍服务</span><i class="tog" aria-hidden="true"></i></li>
+          <li><span data-i18n="s3.p2">悬浮窗</span><i class="tog" aria-hidden="true"></i></li>
+          <li><span data-i18n="s3.p3">自启动 + 省电无限制</span><i class="tog" aria-hidden="true"></i></li>
+        </ul>
+      </li>
+    </ol>
+
+    <p class="start-star rv"><svg width="18" height="18" aria-hidden="true"><use href="#i-github"/></svg><span data-i18n="start.star"><a href='https://github.com/jev-chat/jev-chat-jarvis' target='_blank' rel='noopener' data-umami-event='go-main-repo' data-umami-event-pos='start-tutorial' data-umami-event-intent='tutorial'>查看安装教程</a> · <a href='https://github.com/jev-chat/jev-chat-jarvis' target='_blank' rel='noopener' data-umami-event='go-main-repo' data-umami-event-pos='start-community' data-umami-event-intent='community'>交流与更新：去项目主页查看</a></span></p>
+  </div>
+</section>
+
+<!-- ===================== 06 常见问题 + 已知限制 ===================== -->
+<section class="learning-guides" id="guides" aria-labelledby="guides-title">
+  <div class="wrap">
+    <h2 id="guides-title" data-i18n="learn.title">从这里开始用</h2>
+    <p data-i18n="learn.intro">把安装步骤和使用方法写清楚，遇到问题可以直接回来查。</p>
+    <div class="guide-cards">
+      <article><h3><a href="guides/android-setup.html" data-i18n="learn.1.title" data-i18n-attr="href:learn.1.url" data-umami-event="read-guide" data-umami-event-guide="one">Jev 聊天助手安装与设置：从选择平台到第一条候选回复</a></h3><p data-i18n="learn.1.desc">先确认设备，再配置模型接口与读屏权限。本文说明 Android 的设置顺序、桌面版入口、费用和聊天数据去向。</p></article>
+      <article><h3><a href="guides/review-ai-replies.html" data-i18n="learn.2.title" data-i18n-attr="href:learn.2.url" data-umami-event="read-guide" data-umami-event-guide="two">AI 给出的回复怎么用？发送前检查这四件事</a></h3><p data-i18n="learn.2.desc">用一个明确标注为虚构的对话示例，说明怎样核对事实、减少误读、检查承诺，并把 AI 候选改成自己愿意发送的话。</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-tint" id="faq" aria-labelledby="faq-title">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><b>06</b><span data-i18n="faq.kicker">常见问题</span></p>
+      <h2 id="faq-title" data-i18n="faq.title">装之前，你可能想问</h2>
+    </header>
+
+    <div class="faq-grid">
+      <div class="faq rv">
+        <details id="faq-q1"><summary><span data-i18n="faq.q1">会不会自动帮我发送？</span><i class="acc" aria-hidden="true"></i></summary><div class="faq-a"><p data-i18n="faq.a1">不会。程序只把回复填进输入框，从不自动发送，也不碰转账、红包、收款。发不发、怎么改，都是你自己决定。</p></div></details>
+        <details id="faq-q2"><summary><span data-i18n="faq.q2">我的聊天内容会被上传吗？</span><i class="acc" aria-hidden="true"></i></summary><div class="faq-a"><p data-i18n="faq.a2">只在判断那一刻，把屏幕上近几条消息、你填的关系描述发给你自己配置的接口（开了知识库还会带上命中的笔记和联系人备注，开了历史还会带上这个人近期的聊天），之后不落盘、不进日志，作者不架设服务器、不经手。密钥只存在 App 私有空间。历史记录默认关闭，开了也只存在本机。OCR 走的是 ML Kit 中文离线识别，图片不上传。<a href='privacy.html' data-umami-event='view-privacy' data-umami-event-pos='faq'>完整隐私政策</a></p></div></details>
+        <details id="faq-q3"><summary><span data-i18n="faq.q3">要准备什么密钥？</span><i class="acc" aria-hidden="true"></i></summary><div class="faq-a"><p data-i18n="faq.a3">一把 OpenRouter API Key 就能跑起来：填在「判断接口」，回复和视觉接口留空会自动继承。也可以三路分开配，内置 OpenRouter、博查 Jev、TypeSafe 直连、DeepSeek 官方、通义兼容预设，各自一键测连通。判断接口选「博查 Jev」的话，当前限时免费，key 在 jev.bocha.cn 领。</p></div></details>
+        <details id="faq-q4"><summary><span data-i18n="faq.q4">要花钱吗？</span><i class="acc" aria-hidden="true"></i></summary><div class="faq-a"><p data-i18n="faq.a4">软件本身免费开源。模型调用走你自己的 API Key，按用量在对应服务商那边结算，项目不经手任何费用。</p></div></details>
+        <details id="faq-q5"><summary><span data-i18n="faq.q5">需要 root 吗？</span><i class="acc" aria-hidden="true"></i></summary><div class="faq-a"><p data-i18n="faq.a5">不需要 root，也不用装任何模块。它是非侵入的：只读屏幕上正在显示的对话，不改任何 App 的安装包，不走它们的接口或账号。</p></div></details>
+        <details id="faq-q6"><summary><span data-i18n="faq.q6">支持 iOS 和电脑吗？</span><i class="acc" aria-hidden="true"></i></summary><div class="faq-a"><p data-i18n="faq.a6">暂不支持 iOS。Android、Windows、macOS 的获取入口都在<a href='https://github.com/jev-chat/jev-chat-jarvis' target='_blank' rel='noopener' data-umami-event='go-main-repo' data-umami-event-pos='faq' data-umami-event-intent='get'>GitHub 项目主页</a>；各平台独立维护。网页端还在规划中，目前没有网页版。</p></div></details>
+        <details id="faq-q7"><summary><span data-i18n="faq.q7">悬浮球不见了，或者读不到消息？</span><i class="acc" aria-hidden="true"></i></summary><div class="faq-a"><p data-i18n="faq.a7">多半是国产 ROM 把后台冻结了。确认无障碍、悬浮窗、自启动、省电无限制四项都开着，小米 / HyperOS 尤其要开后两项；重装后悬浮窗权限会被重置，按主页向导再开一次。在聊天界面里随便点一下，通常就能恢复。</p></div></details>
+        <details id="faq-q8"><summary><span data-i18n="faq.q8">升级之后没反应？</span><i class="acc" aria-hidden="true"></i></summary><div class="faq-a"><p data-i18n="faq.a8">把系统设置里的无障碍开关关掉再打开一次。1.3 起新增了截屏能力，服务需要重新绑定才会生效。</p></div></details>
+        <p class="faq-more" data-i18n="faq.more">没找到答案？<a href='https://github.com/jev-chat/jev-chat-jarvis/issues' target='_blank' rel='noopener' data-umami-event='click-issues' data-umami-event-pos='faq'>提一个 Issue</a>，或到<a href='https://github.com/jev-chat/jev-chat-jarvis' target='_blank' rel='noopener' data-umami-event='go-main-repo' data-umami-event-pos='faq-community' data-umami-event-intent='community'>项目主页查看交流方式</a>。</p>
+      </div>
+
+      <aside class="lim rv" aria-labelledby="lim-title">
+        <h3 id="lim-title"><svg width="20" height="20" aria-hidden="true"><use href="#i-alert"/></svg><span data-i18n="lim.title">现在还做不到的</span></h3>
+        <p class="lim-lead" data-i18n="lim.lead">先说清楚，免得装完失望。</p>
+        <ul>
+          <li data-i18n="lim.1">Jev 主要用英文训练，中文场景的判断质量会波动；题目是按亲密关系里的冲突场景校准的，群聊、工作聊天这类场景准确度会下降。</li>
+          <li data-i18n="lim.2">群聊目前按一对一的方式分析，多人交叉对话时判断会不准。</li>
+          <li data-i18n="lim.3">判断给出的是概率，不是确定结论，仅供参考。</li>
+          <li data-i18n="lim.4">部分国产 ROM 的后台冻结策略可能让悬浮气泡短暂消失，开自启动和省电无限制可缓解。</li>
+          <li data-i18n="lim.5">X / Twitter 只在中文界面下验证过。</li>
+          <li data-i18n="lim.6">OCR 只认屏幕上看得见的部分，长消息被截断的地方读不到，偶尔有错字。</li>
+          <li data-i18n="lim.7">知识库按标签或标题匹配，不做语义检索，笔记要打好标签才能被命中。</li>
+          <li data-i18n="lim.8">安装包约 25 MB（含离线中文识别模型），只支持 arm64 机型。</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 联系与交流 ===================== -->
+<section class="sec" id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><b>07</b><span data-i18n="contact.kicker">联系与交流</span></p>
+      <h2 id="contact-title" data-i18n="contact.title">问题、建议、想接新 App，都可以来找</h2>
+    </header>
+
+    <div class="contact-grid">
+      <article class="cc rv">
+        <span class="cc-ico"><svg width="22" height="22" aria-hidden="true"><use href="#i-chat"/></svg></span>
+        <h3 data-i18n="grp.t">交流与更新</h3>
+        <p data-i18n="grp.d">公众号和交流群入口放在 GitHub 项目主页，群二维码会在那里更新。</p>
+        <a class="link-arrow" href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="contact" data-umami-event-intent="community"><span data-i18n="grp.link">交流与更新：去项目主页查看</span><svg width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="cc rv">
+        <span class="cc-ico"><svg width="22" height="22" aria-hidden="true"><use href="#i-github"/></svg></span>
+        <h3 data-i18n="iss.t">GitHub Issues</h3>
+        <p data-i18n="iss.d">提 bug、报某个 App 读不到、提适配需求，走 Issues 好跟踪。</p>
+        <a class="link-arrow" href="https://github.com/jev-chat/jev-chat-jarvis/issues" target="_blank" rel="noopener" data-umami-event="click-issues" data-umami-event-pos="contact"><span data-i18n="iss.link">提一个 Issue</span><svg width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 收尾 ===================== -->
+<section class="end" aria-labelledby="end-title">
+  <div class="wrap end-in rv">
+    <h2 id="end-title" data-i18n="end.title">选好平台，让下一条消息有副驾</h2>
+    <p class="end-meta"><span data-i18n="end.license">开源 MIT</span> · Android <span>v1.4</span> · Windows <span>v0.1.11</span> · macOS <span>v0.6.0</span></p>
+    <div class="end-cta">
+      <a class="btn btn-light btn-lg" href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="closing" data-umami-event-intent="get"><svg width="19" height="19" aria-hidden="true"><use href="#i-github"/></svg><span data-i18n="hero.dl">前往 GitHub 获取 Jev</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a aria-label="Jev 聊天助手 首页" class="brand" href="#top" data-i18n-attr="aria-label:a.brand"><img src="assets/favicon.svg" alt="" width="26" height="26"><span class="brand-name" data-i18n="brand.name">Jev 聊天助手</span></a>
+      <p data-i18n="ft.tag">你的对话副驾。读懂对方、三条回复、一键填入。</p>
+    </div>
+    <nav class="foot-col" aria-labelledby="ft-p">
+      <h2 id="ft-p" data-i18n="ft.product">产品</h2>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="footer" data-umami-event-intent="get" data-i18n="ft.apk">前往 GitHub 获取 Jev</a>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="footer-windows" data-umami-event-intent="windows" data-i18n="ft.win">Windows 版</a>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="footer-macos" data-umami-event-intent="macos" data-i18n="ft.mac">macOS 版</a>
+      <a href="#start" data-i18n="nav.start">开始使用</a>
+      <a href="#apps" data-i18n="nav.apps">支持的 App</a>
+    </nav>
+    <nav class="foot-col" aria-labelledby="ft-r">
+      <h2 id="ft-r" data-i18n="ft.resources">资源</h2>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="footer-github" data-umami-event-intent="get">GitHub</a>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="footer-tutorial" data-umami-event-intent="tutorial" data-i18n="ft.readme">安装教程</a>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis/blob/main/CHANGELOG.md" target="_blank" rel="noopener" data-umami-event="click-github" data-umami-event-pos="footer-changelog" data-i18n="ft.changelog">更新日志</a>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis/issues" target="_blank" rel="noopener" data-umami-event="click-issues" data-umami-event-pos="footer">Issues</a>
+      <a href="privacy.html" data-privacy-link data-umami-event="view-privacy" data-umami-event-pos="footer" data-i18n="ft.privacy">隐私政策</a>
+    </nav>
+    <nav class="foot-col" aria-labelledby="ft-c">
+      <h2 id="ft-c" data-i18n="ft.community">社区</h2>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="footer-community" data-umami-event-intent="community" data-i18n="ft.mp">交流与更新</a>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="footer-group" data-umami-event-intent="community" data-i18n="ft.group">交流群 / 需求收集</a>
+    </nav>
+  </div>
+  <div class="wrap"><div class="foot-bottom">
+    <p data-i18n="learn.sister">同一作者的开源项目：<a href='https://brewreel.com/?lang=zh' data-umami-event='click-sister' data-umami-event-project='brewreel'>精酿 BrewReel · AI 辅助宣传片制作</a>。</p>
+    <p class="language-links"><a href="./?lang=zh" hreflang="zh-CN" lang="zh-CN">简体中文</a> · <a href="en.html" hreflang="en" lang="en">English</a> · <a href="llms.txt" data-i18n="facts.text">项目资料（文本）</a></p>
+
+    <p data-i18n="ft.copy">© 2026 Jev 聊天助手 · <a href='https://github.com/jev-chat/jev-chat-jarvis/blob/main/LICENSE' target='_blank' rel='noopener'>MIT 开源</a> · 可商用，须注明出处（<a href='https://github.com/jev-chat/jev-chat-jarvis/blob/main/NOTICE' target='_blank' rel='noopener'>NOTICE</a>） · <a href='privacy.html' data-umami-event='view-privacy' data-umami-event-pos='footer-legal'>隐私政策</a></p>
+    <p class="fine" data-i18n="ft.legal">仅供个人学习与研究使用，只处理你自己设备上、你自己有权查看的聊天，请遵守各软件许可协议与当地法律法规。</p>
+  </div>
+  </div>
+</footer>
+
+<p class="sr" id="live" aria-live="polite"></p>
+</body>
+</html>

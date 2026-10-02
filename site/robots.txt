@@ -1,0 +1,12 @@
+# Public website content is crawlable.
+User-agent: *
+Allow: /
+
+# Search discovery (these are not training-specific permissions).
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://chatjevs.com/sitemap.xml

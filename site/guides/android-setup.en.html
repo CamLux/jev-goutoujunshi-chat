@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Set up Jev Chat Assistant: choose a platform and generate your first reply options | Jev Chat Assistant</title>
+<meta name="description" content="A practical Android setup guide covering model endpoints, accessibility, overlay permissions, costs and where chat data goes. Desktop editions have separate instructions.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://chatjevs.com/guides/android-setup.en.html">
+<link rel="alternate" hreflang="zh-CN" href="https://chatjevs.com/guides/android-setup.html">
+<link rel="alternate" hreflang="en" href="https://chatjevs.com/guides/android-setup.en.html">
+<link rel="alternate" hreflang="x-default" href="https://chatjevs.com/guides/android-setup.html">
+<meta property="og:type" content="article"><meta property="og:url" content="https://chatjevs.com/guides/android-setup.en.html">
+<meta property="og:title" content="Set up Jev Chat Assistant: choose a platform and generate your first reply options"><meta property="og:description" content="A practical Android setup guide covering model endpoints, accessibility, overlay permissions, costs and where chat data goes. Desktop editions have separate instructions.">
+<meta property="og:image" content="https://chatjevs.com/assets/og.png"><meta name="twitter:card" content="summary_large_image">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="stylesheet" href="../style.css?v=20260930b"><link rel="stylesheet" href="../guide.css?v=20260930b">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://chatjevs.com/guides/android-setup.en.html#article","headline":"Set up Jev Chat Assistant: choose a platform and generate your first reply options","description":"A practical Android setup guide covering model endpoints, accessibility, overlay permissions, costs and where chat data goes. Desktop editions have separate instructions.","inLanguage":"en","datePublished":"2026-09-30T01:56:57+08:00","dateModified":"2026-09-30T01:56:57+08:00","mainEntityOfPage":"https://chatjevs.com/guides/android-setup.en.html","image":"https://chatjevs.com/assets/og.png","author":{"@type":"Person","name":"Finderchangchang","url":"https://github.com/Finderchangchang"},"publisher":{"@type":"Person","name":"Finderchangchang","url":"https://github.com/Finderchangchang"},"isPartOf":{"@id":"https://chatjevs.com/#website"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Jev Chat Assistant","item":"https://chatjevs.com/en.html"},{"@type":"ListItem","position":2,"name":"Set up Jev Chat Assistant: choose a platform and generate your first reply options","item":"https://chatjevs.com/guides/android-setup.en.html"}]}]}</script>
+<script>try { var theme=localStorage.getItem('jev-theme'); if(theme==='light'||theme==='dark') document.documentElement.setAttribute('data-theme',theme); } catch(e) {}</script>
+<script defer src="https://umami.jisikeji.cn/script.js" data-website-id="e294ceb6-4001-47a0-a18b-d225cd09017a"></script>
+</head>
+<body>
+<a class="guide-skip" href="#main">Skip to content</a>
+<header class="guide-nav"><a class="guide-brand" href="../en.html">Jev Chat Assistant</a><nav aria-label="Guide navigation"><a href="../en.html#guides">All guides</a><a href="android-setup.html" hreflang="zh-CN" lang="zh-CN">简体中文</a></nav></header>
+<main id="main" class="guide-main">
+<article>
+<header><p class="guide-kicker">Practical guide</p><h1>Set up Jev Chat Assistant: choose a platform and generate your first reply options</h1><p class="guide-lead">A practical Android setup guide covering model endpoints, accessibility, overlay permissions, costs and where chat data goes. Desktop editions have separate instructions.</p><p class="guide-meta"><a href="https://github.com/Finderchangchang">Finderchangchang</a> · <time datetime="2026-09-30T01:56:57+08:00">2026-09-30</time></p></header>
+<h2 id="platform">Choose the platform before following setup instructions</h2>
+<p>The main Jev repository links to separately maintained Android, Windows and macOS editions. The accessibility, overlay and OCR steps below describe Android. Follow each desktop project’s own instructions for Windows or macOS.</p>
+<div class="guide-table"><table><thead><tr><th>Platform</th><th>Requirements currently listed</th><th>Next step</th></tr></thead><tbody><tr><td>Android</td><td>Android 11+, ARM64</td><td>Follow the steps below</td></tr><tr><td>Windows</td><td>Windows 10 1903+ / 11</td><td>Choose the Windows project from the main repository</td></tr><tr><td>macOS</td><td>macOS 13+, Apple Silicon</td><td>Choose the macOS project from the main repository</td></tr></tbody></table></div>
+<p>An iOS edition and a browser version are not currently available. Start from the <a href="https://github.com/jev-chat/jev-chat-jarvis">GitHub project homepage</a> and check the release notes for your platform.</p>
+<h2 id="install">1. Get and install the Android package</h2>
+<p>Use the Android entry in the main repository. Check the Android version and CPU architecture first; this guide covers ARM64 devices.</p>
+<p>A previous debug build may have a different signature and prevent an in-place update. Uninstalling removes settings and keys, so account for anything you need to retain first. After a normal upgrade, turn accessibility off and on again to rebind the service if necessary.</p>
+<h2 id="api">2. Configure and test the model endpoints</h2>
+<p>In the app’s endpoint settings, there are separate cards for judgment, reply generation and vision. The current README describes starting with your OpenRouter API key in the judgment card and leaving the other two blank to inherit it. You can also configure each route independently.</p>
+<ol><li>Make sure the provider address, model name and API key match.</li><li>Run the connection check on the endpoint card.</li><li>Once the endpoint works, test screen reading in a supported chat.</li></ol>
+<p>Free open-source software does not imply free model calls. Your chosen provider sets API charges. Keep keys out of screenshots, issues and public documents.</p>
+<h2 id="permissions">3. Follow the app’s permission guide</h2>
+<ul><li><strong>Accessibility:</strong> reads the supported chat interface currently on screen.</li><li><strong>Overlay:</strong> displays analysis and reply options beside the chat.</li><li><strong>Autostart and battery settings:</strong> some devices freeze background apps. Check the device and app instructions, particularly on Xiaomi / HyperOS.</li></ul>
+<p>Reinstalling may reset overlay permission. Permissions allow capture and display; they do not replace model endpoint configuration.</p>
+<h2 id="first-reply">4. Check the full flow with non-sensitive content</h2>
+<p>Try a supported chat with non-sensitive text. Compare the recognized words with the screen, inspect the assessment and reply options, then copy or fill a candidate. Review it before pressing Send yourself.</p>
+<p>The website records verification for QQ and X direct messages, and OCR-assisted text capture for Feishu / Lark. This does not establish support for every app version or interface language. Read the <a href="../en.html#apps">compatibility notes</a> first.</p>
+<h2 id="troubleshooting">Troubleshoot the stage that fails</h2>
+<ul><li><strong>Endpoint test fails:</strong> check the address, model, key and provider availability.</li><li><strong>The bubble appears but no text is captured:</strong> check accessibility, the current screen and compatibility. OCR can only read visible text.</li><li><strong>The bubble disappears:</strong> check autostart, background and battery settings, and permissions after reinstalling.</li><li><strong>The text is correct but a reply is unsuitable:</strong> check the context and edit the candidate. An assessment is not a certain conclusion.</li></ul>
+<h2 id="privacy">Know where the data goes</h2>
+<p>Screenshot recognition happens locally on Android. When you request analysis, chat text and enabled background context are sent to the model endpoint you configure. Local OCR does not make the whole process offline. Review the provider’s policy and the <a href="../privacy.html#en-summary">Jev privacy summary</a>.</p>
+<p class="guide-note">This guide is based on public project documentation, not an independent test across all devices. Sources: the <a href="https://github.com/jev-chat/jev-chat-jarvis/blob/main/README.md">project README</a> and website compatibility notes.</p>
+<aside class="guide-cta"><h2>Try the project</h2><p>Choose your platform in the main repository and follow its setup instructions.</p><a class="guide-button" href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="guide-android-setup" data-umami-event-intent="get">Open the GitHub project →</a></aside>
+<aside class="guide-related"><h2>Continue reading</h2><ul><li><a href="review-ai-replies.en.html">How to review an AI-written reply before sending it</a></li><li><a href="../en.html">Product overview, demonstrations and limitations</a></li></ul></aside>
+</article>
+</main>
+<footer class="guide-footer">© 2026 Finderchangchang · <a href="https://github.com/jev-chat/jev-chat-jarvis">GitHub</a> · <a href="../en.html">Official website</a></footer>
+</body></html>

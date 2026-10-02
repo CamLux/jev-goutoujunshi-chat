@@ -1,0 +1,38 @@
+# Jev Chat Assistant / Jev 聊天助手
+
+> Jev Chat Assistant is an open-source AI chat companion with Android, Windows and macOS versions. It helps you analyze messages, interpret intent and draft reply options. You review the wording and decide whether to send.
+
+Jev 聊天助手（Jev Chat Assistant）是开源的 AI 聊天辅助工具，提供 Android、Windows 和 macOS 版本。它帮助你分析消息、理解意图并起草候选回复，发送前由你检查和决定。
+
+## Official pages
+
+- [简体中文](https://chatjevs.com/): Product overview, requirements and limitations.
+- [English](https://chatjevs.com/en.html): Complete static English page.
+- [GitHub](https://github.com/jev-chat/jev-chat-jarvis): Source code, installation and platform documentation.
+- [Releases](https://github.com/jev-chat/jev-chat-jarvis/releases): Published releases.
+- [Privacy policy](https://chatjevs.com/privacy.html): Android data handling; English summary at #en-summary.
+
+## Product facts
+
+- Who it is for: Individuals who want help choosing words, interpreting conversational tone or drafting a reply. Its assessments are suggestions, not certain conclusions.
+- 适合什么需求：需要斟酌措辞、理解对话语气或获得回复思路的个人用户；判断结果仅供参考。
+- Platforms and feature scope: Each platform is maintained separately. Accessibility capture, ML Kit OCR, permissions and chat-app compatibility on this page describe the Android version. See each desktop project for its own capabilities.
+- 平台与功能范围：三端独立维护。本页的无障碍读屏、ML Kit OCR、权限设置和聊天 App 兼容性说明以 Android 版为准；桌面端功能以各自项目说明为准。
+- Costs and requirements: The Android project is free and open source under MIT. Model calls use your own API key and may incur provider charges. Desktop licenses and requirements are documented in their respective projects.
+- 费用与使用条件：Android 项目采用 MIT 许可，软件免费开源；模型接口使用你自己的 API Key，可能产生服务商费用。桌面端许可与要求见对应项目。
+
+Project publisher: Finderchangchang . Find packages, platform documentation and updates on the GitHub project homepage .
+
+## Read before use
+
+- Reply sending remains a user decision. Model assessments are uncertain.
+- Android chat text is sent to the model endpoint configured by the user; local OCR does not make the whole application offline.
+- Android features and permissions must not be assumed to apply to desktop versions.
+- iOS is not supported; a browser version is not currently available.
+
+## Practical guides
+
+- [Jev 聊天助手安装与设置：从选择平台到第一条候选回复](https://chatjevs.com/guides/android-setup.html): 先确认设备，再配置模型接口与读屏权限。本文说明 Android 的设置顺序、桌面版入口、费用和聊天数据去向。
+- [Set up Jev Chat Assistant: choose a platform and generate your first reply options](https://chatjevs.com/guides/android-setup.en.html): A practical Android setup guide covering model endpoints, accessibility, overlay permissions, costs and where chat data goes. Desktop editions have separate instructions.
+- [AI 给出的回复怎么用？发送前检查这四件事](https://chatjevs.com/guides/review-ai-replies.html): 用一个明确标注为虚构的对话示例，说明怎样核对事实、减少误读、检查承诺，并把 AI 候选改成自己愿意发送的话。
+- [How to review an AI-written reply before sending it](https://chatjevs.com/guides/review-ai-replies.en.html): Use a clearly fictional conversation to check captured text, uncertain interpretations, invented facts and commitments before turning an AI candidate into your own message.

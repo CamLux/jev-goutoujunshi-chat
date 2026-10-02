@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-i18n="meta.title">Jev Chat Assistant — Open-source AI chat companion for Android, Windows and macOS</title>
+<meta name="description" content="Jev Chat Assistant is available for Android, Windows, and macOS. It reads visible chats, judges intent and risk, drafts replies, and fills the one you choose. Sending stays manual. Find installers, guides, and community links on GitHub." data-i18n-attr="content:meta.desc">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://chatjevs.com/en.html">
+<link rel="alternate" hreflang="zh-CN" href="https://chatjevs.com/">
+<link rel="alternate" hreflang="en" href="https://chatjevs.com/en.html">
+<link rel="alternate" hreflang="x-default" href="https://chatjevs.com/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#fbfcfe" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1120" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chatjevs.com/en.html">
+<meta property="og:site_name" content="Jev 聊天助手">
+<meta property="og:title" content="Jev Chat Assistant — read them first, then reply" data-i18n-attr="content:meta.ogTitle">
+<meta property="og:description" content="Reads the other person, suggests three replies, fills one in. Open source (MIT) for Android, Windows and macOS. It never sends for you." data-i18n-attr="content:meta.ogDesc">
+<meta property="og:image" content="https://chatjevs.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Jev Chat Assistant: the overlay shows a danger level, the other person's true intent and three suggested replies" data-i18n-attr="content:meta.ogAlt">
+<meta property="og:locale" content="en_US" data-i18n-attr="content:meta.locale">
+<meta property="og:locale:alternate" content="zh_CN" data-i18n-attr="content:meta.localeAlt">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jev Chat Assistant — read them first, then reply" data-i18n-attr="content:meta.ogTitle">
+<meta name="twitter:description" content="Reads the other person, suggests three replies, fills one in. Open source (MIT) for Android, Windows and macOS. It never sends for you." data-i18n-attr="content:meta.ogDesc">
+<meta name="twitter:image" content="https://chatjevs.com/assets/og.png">
+<script type="application/ld+json" id="site-schema">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://chatjevs.com/#author",
+      "name": "Finderchangchang",
+      "url": "https://github.com/Finderchangchang"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://chatjevs.com/#website",
+      "url": "https://chatjevs.com/",
+      "name": "Jev Chat Assistant",
+      "inLanguage": [
+        "zh-CN",
+        "en"
+      ],
+      "publisher": {
+        "@id": "https://chatjevs.com/#author"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://chatjevs.com/#software",
+      "name": "Jev Chat Assistant",
+      "alternateName": [
+        "Jev Chat Assistant",
+        "Jev 聊天助手"
+      ],
+      "url": "https://chatjevs.com/",
+      "description": "Jev Chat Assistant is an open-source AI chat companion with Android, Windows and macOS versions. It helps you analyze messages, interpret intent and draft reply options. You review the wording and decide whether to send.",
+      "sameAs": [
+        "https://github.com/jev-chat/jev-chat-jarvis"
+      ],
+      "author": {
+        "@id": "https://chatjevs.com/#author"
+      },
+      "applicationCategory": "CommunicationApplication",
+      "operatingSystem": [
+        "Android",
+        "Windows",
+        "macOS"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://chatjevs.com/en.html#webpage",
+      "url": "https://chatjevs.com/en.html",
+      "name": "Jev Chat Assistant — Open-source AI chat companion for Android, Windows and macOS",
+      "description": "Jev Chat Assistant is available for Android, Windows, and macOS. It reads visible chats, judges intent and risk, drafts replies, and fills the one you choose. Sending stays manual. Find installers, guides, and community links on GitHub.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://chatjevs.com/#website"
+      },
+      "mainEntity": {
+        "@id": "https://chatjevs.com/#software"
+      }
+    }
+  ]
+}
+</script>
+<script>
+  // Theme first; each language also has a complete, crawlable static HTML page.
+  (function () {
+    var d = document.documentElement;
+    try {
+      var theme = localStorage.getItem("jev-theme");
+      if (theme === "dark" || theme === "light") d.setAttribute("data-theme", theme);
+    } catch (e) {}
+    var q = new URLSearchParams(location.search).get("lang");
+    var saved = null;
+    try { saved = localStorage.getItem("jev-lang"); } catch (e) {}
+    var isEnglishPage = /\/en\.html$/.test(location.pathname);
+    var next = q === "en" || q === "zh" ? q : (isEnglishPage ? "en" :
+      (saved === "en" || saved === "zh" ? saved : (/^zh(?:-|$)/i.test((navigator.languages && navigator.languages[0]) || navigator.language || "zh") ? "zh" : "en")));
+    if ((next === "en") !== isEnglishPage) {
+      var url = new URL(next === "en" ? "en.html" : "./", location.href);
+      url.search = location.search;
+      url.hash = location.hash;
+      location.replace(url.href);
+    }
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..800&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..800&amp;display=swap"></noscript>
+<link rel="stylesheet" href="style.css?v=20260930b">
+<script defer src="i18n.js?v=20260930b"></script>
+<script defer src="main.js?v=20260930b"></script>
+<script defer src="https://umami.jisikeji.cn/script.js" data-website-id="e294ceb6-4001-47a0-a18b-d225cd09017a"></script>
+</head>
+<body>
+
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-github" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.9l2.75 5.8 6.35.8-4.65 4.4 1.2 6.3L12 17.1l-5.65 3.1 1.2-6.3L2.9 9.5l6.35-.8z"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.8 12 15.3l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4.5 12h14M13 6.5l5.5 5.5-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M15.5 8.5V6.7a2.2 2.2 0 0 0-2.2-2.2H6.7a2.2 2.2 0 0 0-2.2 2.2v6.6a2.2 2.2 0 0 0 2.2 2.2h1.8" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.3 4.3L19 7.2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-cross" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2.6v2.4M12 19v2.4M2.6 12h2.4M19 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M18.7 5.3L17 7M7 17l-1.7 1.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="currentColor" d="M20 14.4A8.6 8.6 0 1 1 9.6 4a7 7 0 0 0 10.4 10.4z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.6c0 4.3-3 8-7.5 9.4-4.5-1.4-7.5-5.1-7.5-9.4V6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.8 12l2.3 2.3 4.1-4.6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path fill="currentColor" d="M3.4 20.1 21 12 3.4 3.9l-.1 6.3L15 12 3.3 13.8z"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 3v2.6M12 18.4V21M3 12h2.6M18.4 12H21M5.6 5.6l1.9 1.9M16.5 16.5l1.9 1.9M18.4 5.6l-1.9 1.9M7.5 16.5l-1.9 1.9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5.2v13.6L18.8 12z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path fill="currentColor" d="M7 5h3.4v14H7zM13.6 5H17v14h-3.4z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6.5" y="2.8" width="11" height="18.4" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.5 18h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="12" rx="1.8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 20h7M12 16.5V20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><path d="M5 5.5A1.5 1.5 0 0 1 6.5 4h11A1.5 1.5 0 0 1 19 5.5V15H5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M2.5 15h19l-1.4 3.1a1.7 1.7 0 0 1-1.55 1H5.45a1.7 1.7 0 0 1-1.55-1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M12 5c4.4 0 7.8 3.2 9 7-1.2 3.8-4.6 7-9 7s-7.8-3.2-9-7c1.2-3.8 4.6-7 9-7z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2.8" fill="currentColor"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 10h8M8 14h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="9.5" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.2 10.5V8a3.8 3.8 0 0 1 7.6 0v2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="15.2" r="1.5" fill="currentColor"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7.5 18.5h9.8a3.7 3.7 0 0 0 .5-7.4 5.6 5.6 0 0 0-10.8-1.3A4.4 4.4 0 0 0 7.5 18.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 6l12 12" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.8h5V7M6.5 7l.9 12.2a1.5 1.5 0 0 0 1.5 1.3h6.2a1.5 1.5 0 0 0 1.5-1.3L17.5 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M12 3.5l7.5 3.1v5.3c0 4.4-3.1 7.9-7.5 9.1-4.4-1.2-7.5-4.7-7.5-9.1V6.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M5 5.5A1.5 1.5 0 0 1 6.5 4H18v16H6.5A1.5 1.5 0 0 1 5 18.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8.5h6M9 12h6M9 15.5h3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M5 7.5h14M5 12h14M5 16.5h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="9" cy="7.5" r="2.1" fill="var(--card, #fff)" stroke="currentColor" stroke-width="1.8"/><circle cx="15" cy="12" r="2.1" fill="var(--card, #fff)" stroke="currentColor" stroke-width="1.8"/><circle cx="10" cy="16.5" r="2.1" fill="var(--card, #fff)" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-core" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="currentColor"/><circle cx="5" cy="6" r="2.1" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="19" cy="6" r="2.1" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="5" cy="18" r="2.1" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="19" cy="18" r="2.1" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M6.8 7.4l3 3M17.2 7.4l-3 3M6.8 16.6l3-3M17.2 16.6l-3-3" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H9l-5 3.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5v5.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16.3" r="1.2" fill="currentColor"/></symbol>
+</svg>
+
+<a class="skip" href="#main" data-i18n="skip">Skip to main content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a aria-label="Jev Chat Assistant home" class="brand" href="#top" data-i18n-attr="aria-label:a.brand">
+      <img src="assets/favicon.svg" alt="" width="28" height="28">
+      <span class="brand-name" data-i18n="brand.name">Jev Chat Assistant</span>
+    </a>
+
+    <nav aria-label="Main" class="menu" id="navMenu" data-i18n-attr="aria-label:a.nav">
+      <a href="#read" data-i18n="nav.read">How it reads</a>
+      <a href="#how" data-i18n="nav.how">How it works</a>
+      <a href="#privacy" data-i18n="nav.privacy">Your data</a>
+      <a href="#apps" data-i18n="nav.apps">Supported apps</a>
+      <a href="#start" data-i18n="nav.start">Get started</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+    </nav>
+
+    <div class="nav-act">
+      <button aria-label="切换到中文" class="lang-btn" id="langBtn" type="button" data-i18n-attr="aria-label:a.lang"><span class="l-zh">中</span><span class="l-sep" aria-hidden="true">/</span><span class="l-en">EN</span></button>
+      <button title="Toggle light and dark theme" aria-label="Toggle light and dark theme" class="icon-btn" id="themeBtn" type="button" data-i18n-attr="aria-label:a.theme;title:a.theme">
+        <svg class="ico-sun" width="18" height="18" aria-hidden="true"><use href="#i-sun"/></svg>
+        <svg class="ico-moon" width="18" height="18" aria-hidden="true"><use href="#i-moon"/></svg>
+      </button>
+      <a class="btn btn-primary btn-sm nav-dl" href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="nav" data-umami-event-intent="get">
+        <svg width="16" height="16" aria-hidden="true"><use href="#i-github"/></svg><span data-i18n="nav.dl">Get Jev on GitHub</span>
+      </a>
+      <button aria-label="Open menu" class="icon-btn burger" id="burger" type="button" aria-expanded="false" aria-controls="navMenu" data-i18n-attr="aria-label:a.menuOpen">
+        <svg width="20" height="20" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ===================== 首屏：一句话 + 会动的悬浮窗演示 ===================== -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="dot-live" aria-hidden="true"></span><span data-i18n="hero.eyebrow">Open source · MIT · Android / Windows / macOS</span></p>
+      <h1 id="hero-title" data-i18n="hero.title">Read them first,<br><span class='hl'>then reply</span></h1>
+      <p class="hero-sub" data-i18n="hero.sub">Jev Chat Assistant is your chat copilot. It reads visible chats, judges intent and danger level, drafts replies, and fills the one you pick into the input box. Whether to send is up to you. Available for Android, Windows, and macOS.</p>
+
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="hero" data-umami-event-intent="get">
+          <svg width="19" height="19" aria-hidden="true"><use href="#i-github"/></svg><span data-i18n="hero.dl">Get Jev on GitHub</span>
+        </a>
+      </div>
+      <p class="hero-meta" data-i18n="hero.meta">Installers, setup guides, and platform links are on the GitHub project page. Choose the platform that fits you.</p>
+
+      <p class="hero-note"><svg width="18" height="18" aria-hidden="true"><use href="#i-shield"/></svg><span data-i18n="hero.note">It only fills the reply into the input box. It never sends on its own and never touches transfers, red packets or payments. <a href='#privacy'>Where does my chat text go?</a></span></p>
+    </div>
+
+    <figure aria-label="Demo: how the Jev overlay helps you answer one message" class="demo" id="demo" data-step="4" data-i18n-attr="aria-label:demo.aria">
+      <p class="sr" data-i18n="demo.sr">Demo animation: the other person writes “You just don't get me.” The Jev overlay rates it danger 8/9, high risk; their true intent is checking whether you care, so it suggests acknowledging the feeling and holding off on substance. It then shows three ranked replies. Tapping Fill on the first one puts it in the input box; you press send yourself.</p>
+      <div class="demo-stage">
+        <div class="phone" aria-hidden="true">
+          <div class="ph-screen">
+            <div class="ph-status"><span>9:41</span><span class="ph-sys"><i></i><i></i><i></i></span></div>
+            <div class="ph-head">
+              <svg class="ph-back" width="18" height="18"><use href="#i-back"/></svg>
+              <span class="ph-av"></span>
+              <span class="ph-name" data-i18n="demo.chatName">Jamie</span>
+              <span class="ph-more">···</span>
+            </div>
+            <div class="ph-chat">
+              <p class="msg me" data-i18n="demo.m1">Playing ball with friends this weekend</p>
+              <p class="msg them" data-i18n="demo.m2">You weren't around last weekend either</p>
+              <p class="msg them m-new" data-i18n="demo.m3">You just don't get me</p>
+            </div>
+
+            <div class="ph-ball"><span>Jev</span><i class="ph-dot"></i></div>
+
+            <div class="jp">
+              <div class="jp-head"><b data-i18n="demo.panelTitle">Jev analysis</b><span class="jp-ic"><svg width="15" height="15"><use href="#i-gear"/></svg><svg width="15" height="15"><use href="#i-cross"/></svg></span></div>
+              <div class="jp-body">
+                <p class="jp-hint" data-i18n="demo.kb">No notes used</p>
+                <p class="jp-badge"><span class="jp-lvl" data-i18n="demo.badge">Danger 8/9</span><span class="jp-word" data-i18n="demo.word">High risk</span></p>
+                <p class="jp-intent" data-i18n="demo.intent">True intent: see if you care</p>
+                <p class="jp-hint jp-conf" data-i18n="demo.conf">Confidence 82%</p>
+                <p class="jp-bits" data-i18n="demo.bits">Wants your care · Acknowledge · No substance yet</p>
+                <div class="jp-div"></div>
+                <p class="jp-label" data-i18n="demo.listLabel">Suggested replies (ranked by Jev)</p>
+                <p class="jp-hint jp-gen" data-i18n="demo.gen">Generating…</p>
+                <div class="jp-card jp-r1">
+                  <p class="jp-rank">1 · 64%</p>
+                  <p class="jp-text" data-i18n="demo.r1">I didn't think about how you felt. Will you tell me?</p>
+                  <p class="jp-pills"><span class="jp-pill" data-i18n="demo.copy">Copy</span><span class="jp-pill jp-fill" data-i18n="demo.fill">Fill</span><i class="jp-tap"></i></p>
+                </div>
+                <div class="jp-card jp-r2">
+                  <p class="jp-rank">2 · 24%</p>
+                  <p class="jp-text" data-i18n="demo.r2">Sorry, that came out wrong</p>
+                  <p class="jp-pills"><span class="jp-pill" data-i18n="demo.copy">Copy</span><span class="jp-pill jp-fill" data-i18n="demo.fill">Fill</span></p>
+                </div>
+                <div class="jp-card jp-r3">
+                  <p class="jp-rank">3 · 12%</p>
+                  <p class="jp-text" data-i18n="demo.r3">Then tell me what I'm not getting</p>
+                  <p class="jp-pills"><span class="jp-pill" data-i18n="demo.copy">Copy</span><span class="jp-pill jp-fill" data-i18n="demo.fill">Fill</span></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="ph-input">
+              <div class="ph-field"><span class="ph-ph" data-i18n="demo.placeholder">Message</span><span class="ph-typed" data-i18n="demo.r1">I didn't think about how you felt. Will you tell me?</span><i class="ph-caret"></i></div>
+              <span class="ph-send"><svg width="17" height="17"><use href="#i-send"/></svg></span>
+            </div>
+            <div class="ph-home"></div>
+          </div>
+        </div>
+
+        <div class="demo-note" id="demoNote" aria-live="off">
+          <span class="dn-no" id="demoNoteNo">04</span>
+          <p class="dn-text" id="demoNoteText" data-i18n="demo.n4">Tap Fill and the reply lands in the input box. <b>The send button stays untouched</b>: whether and how to send is your call.</p>
+        </div>
+      </div>
+
+      <div class="demo-ctl">
+        <ol aria-label="Demo steps; pick one to stop there" class="demo-steps" data-i18n-attr="aria-label:a.demoSteps">
+          <li><button type="button" data-go="1"><span class="ds-bar"><i></i></span><span class="ds-t"><b>1</b><span data-i18n="demo.s1">Message in</span></span></button></li>
+          <li><button type="button" data-go="2"><span class="ds-bar"><i></i></span><span class="ds-t"><b>2</b><span data-i18n="demo.s2">Read intent</span></span></button></li>
+          <li><button type="button" data-go="3"><span class="ds-bar"><i></i></span><span class="ds-t"><b>3</b><span data-i18n="demo.s3">Three replies</span></span></button></li>
+          <li><button type="button" data-go="4"><span class="ds-bar"><i></i></span><span class="ds-t"><b>4</b><span data-i18n="demo.s4">You send</span></span></button></li>
+        </ol>
+        <button class="demo-toggle" id="demoToggle" type="button" hidden>
+          <svg class="ico-pause" width="14" height="14" aria-hidden="true"><use href="#i-pause"/></svg>
+          <svg class="ico-play" width="14" height="14" aria-hidden="true"><use href="#i-play"/></svg>
+          <span id="demoToggleLabel" data-i18n="demo.pause">Pause demo</span>
+        </button>
+      </div>
+      <figcaption class="demo-cap" data-i18n="demo.cap">Demo animation with a simulated chat. The overlay is recreated from the app's source code; the app's own interface is in Chinese.</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap"><div class="works">
+    <p class="works-label" data-i18n="hero.works">Works in</p>
+    <ul class="works-list">
+      <li class="ok" data-i18n="app.qq">QQ</li>
+      <li class="ok" data-i18n="app.x">X (Twitter)</li>
+      <li class="ocr" data-i18n="app.lark">Feishu / Lark (OCR)</li>
+      <li class="ocr" data-i18n="app.any">Any app (manual OCR)</li>
+      <li class="plan" data-i18n="app.web">Web (planned)</li>
+    </ul>
+  </div></div>
+</section>
+
+<section class="product-facts" id="about" aria-labelledby="facts-title">
+  <div class="wrap">
+    <h2 id="facts-title" data-i18n="facts.title">What is Jev Chat Assistant?</h2>
+    <p class="facts-intro" data-i18n="facts.desc">Jev Chat Assistant is an open-source AI chat companion with Android, Windows and macOS versions. It helps you analyze messages, interpret intent and draft reply options. You review the wording and decide whether to send.</p>
+    <dl class="facts-grid">
+      <div><dt data-i18n="facts.use.label">Who it is for</dt><dd data-i18n="facts.use">Individuals who want help choosing words, interpreting conversational tone or drafting a reply. Its assessments are suggestions, not certain conclusions.</dd></div>
+      <div><dt data-i18n="facts.scope.label">Platforms and feature scope</dt><dd data-i18n="facts.scope">Each platform is maintained separately. Accessibility capture, ML Kit OCR, permissions and chat-app compatibility on this page describe the Android version. See each desktop project for its own capabilities.</dd></div>
+      <div><dt data-i18n="facts.cost.label">Costs and requirements</dt><dd data-i18n="facts.cost">The Android project is free and open source under MIT. Model calls use your own API key and may incur provider charges. Desktop licenses and requirements are documented in their respective projects.</dd></div>
+    </dl>
+    <p class="facts-source" data-i18n="facts.source">Project publisher: <a href='https://github.com/Finderchangchang' rel='noopener' target='_blank'>Finderchangchang</a>. Find packages, platform documentation and updates on the <a href='https://github.com/jev-chat/jev-chat-jarvis' target='_blank' rel='noopener' data-umami-event='go-main-repo' data-umami-event-pos='facts' data-umami-event-intent='get'>GitHub project homepage</a>.</p>
+  </div>
+</section>
+
+
+<!-- ===================== 01 先看懂 ===================== -->
+<section class="sec" id="read" aria-labelledby="read-title">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><b>01</b><span data-i18n="read.kicker">Read first</span></p>
+      <h2 id="read-title" data-i18n="read.title">The same “k” can mean opposite things</h2>
+      <p class="lead" data-i18n="read.lead">Most assistants hand you a paragraph right away. Jev first works out what the message actually is, then decides how to answer.</p>
+    </header>
+
+    <div class="mm-grid">
+      <article class="mm mm-safe rv">
+        <p class="mm-ctx" data-i18n="read.ctx">Before</p>
+        <div class="mm-chat">
+          <p class="bub me" data-i18n="read.a.me">Working late tonight, home a bit later</p>
+          <p class="bub them bub-hm" data-i18n="read.hm">k</p>
+        </div>
+        <div class="mm-read">
+          <div class="meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on cur"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <p class="mm-badge"><span class="lvl" data-i18n="read.a.lvl">Danger 2/9</span><span class="word" data-i18n="read.a.word">Safe</span></p>
+          <p class="mm-intent"><span class="k" data-i18n="read.intentK">True intent</span><b data-i18n="read.a.intent">just chatting</b></p>
+          <p class="mm-needs" data-i18n="read.a.needs">Needs: nothing</p>
+        </div>
+      </article>
+
+      <p class="mm-vs" aria-hidden="true">≠</p>
+
+      <article class="mm mm-risk rv">
+        <p class="mm-ctx" data-i18n="read.ctx">Before</p>
+        <div class="mm-chat">
+          <p class="bub me" data-i18n="read.b.me">I forgot our anniversary. I'll make it up tomorrow</p>
+          <p class="bub them bub-hm" data-i18n="read.hm">k</p>
+        </div>
+        <div class="mm-read">
+          <div class="meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on cur"></i><i></i><i></i></div>
+          <p class="mm-badge"><span class="lvl" data-i18n="read.b.lvl">Danger 7/9</span><span class="word" data-i18n="read.b.word">Risky</span></p>
+          <p class="mm-intent"><span class="k" data-i18n="read.intentK">True intent</span><b data-i18n="read.b.intent">checking whether you care</b></p>
+          <p class="mm-needs" data-i18n="read.b.needs">Needs an apology · Apologize first</p>
+        </div>
+      </article>
+    </div>
+    <p class="mm-note rv" data-i18n="read.note">Demo scenario; the chats are simulated.</p>
+
+    <div class="jq rv">
+      <div class="jq-head">
+        <h3 data-i18n="jq.title">Jev's decision model doesn't write. It picks from fixed options.</h3>
+        <p data-i18n="jq.lead">One request asks seven questions: true intent, danger level (0–9), what they need, whether to reply with substance now, what to do next and more. Every answer comes with probabilities and a confidence score, in about a second. A separate text model writes the replies.</p>
+      </div>
+      <ol class="jq-list">
+        <li><span class="jq-type t-choice" data-i18n="jq.choice">Choice</span><h4 data-i18n="jq.i1.n">True intent</h4><p data-i18n="jq.i1.o">Checking you care · Venting · Asking for action · Wants an explanation · Casual chat · Topic closed</p></li>
+        <li><span class="jq-type t-score" data-i18n="jq.score">Score</span><h4 data-i18n="jq.i2.n">Danger level</h4><p data-i18n="jq.i2.o">0 is light chat, 9 is an open rupture; the overlay labels it safe, careful, risky or high risk</p></li>
+        <li><span class="jq-type t-choice" data-i18n="jq.choice">Choice</span><h4 data-i18n="jq.i3.n">What they need</h4><p data-i18n="jq.i3.o">An apology · Action · An explanation · Your care · Nothing</p></li>
+        <li><span class="jq-type t-yn" data-i18n="jq.yesno">Yes / no</span><h4 data-i18n="jq.i4.n">Reply with substance now?</h4><p data-i18n="jq.i4.o">Should the next line carry real content; the overlay shows “give substance” or “hold off on substance”</p></li>
+        <li><span class="jq-type t-choice" data-i18n="jq.choice">Choice</span><h4 data-i18n="jq.i5.n">What to do next</h4><p data-i18n="jq.i5.o">Check the history · Apologize · Commit · Explain · Acknowledge · Say less · Make a plan</p></li>
+        <li><span class="jq-type t-yn" data-i18n="jq.yesno">Yes / no</span><h4 data-i18n="jq.i6.n">Any subtext?</h4><p data-i18n="jq.i6.o">Meant literally, or a test, sarcasm or a hint</p></li>
+        <li><span class="jq-type t-yn" data-i18n="jq.yesno">Yes / no</span><h4 data-i18n="jq.i7.n">Tension resolved?</h4><p data-i18n="jq.i7.o">They accepted and are joking again, or still waiting on you</p></li>
+      </ol>
+    </div>
+
+    <div class="cmp rv">
+      <div class="cmp-head">
+        <h3 data-i18n="cmp.title">Compared with other approaches</h3>
+        <p data-i18n="cmp.lead">They all “help you reply.” The differences: how much they can read, whether they judge first, and who presses send.</p>
+      </div>
+      <div class="table-scroll" tabindex="0" role="region" aria-labelledby="cmp-cap">
+        <table class="cmp-table">
+          <caption class="sr" id="cmp-cap" data-i18n="cmp.title">Compared with other approaches</caption>
+          <thead>
+            <tr>
+              <th scope="col" data-i18n="cmp.h0">Capability</th>
+              <th scope="col" class="us" data-i18n="cmp.h1">Jev Chat Assistant</th>
+              <th scope="col" data-i18n="cmp.h2">Keyboard or in-app AI replies</th>
+              <th scope="col" data-i18n="cmp.h3">General chatbots (copy and paste)</th>
+              <th scope="col" data-i18n="cmp.h4">Auto-reply bots</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row" data-i18n="cmp.r1">Judges before writing</th><td class="us"><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">Yes</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">No</span></td><td><span class="mk p" data-i18n="cmp.part">Partly</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">No</span></td></tr>
+            <tr><th scope="row" data-i18n="cmp.r2">Reads any chat app</th><td class="us"><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">Yes</span></td><td><span class="mk p" data-i18n="cmp.part">Partly</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">No</span></td><td><span class="mk p" data-i18n="cmp.part">Partly</span></td></tr>
+            <tr><th scope="row" data-i18n="cmp.r3">Non-invasive, no client changes</th><td class="us"><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">Yes</span></td><td><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">Yes</span></td><td><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">Yes</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">No</span></td></tr>
+            <tr><th scope="row" data-i18n="cmp.r4">You press send</th><td class="us"><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">Yes</span></td><td><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">Yes</span></td><td><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">Yes</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">No</span></td></tr>
+            <tr><th scope="row" data-i18n="cmp.r5">Notes + contact context</th><td class="us"><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">Yes</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">No</span></td><td><span class="mk p" data-i18n="cmp.part">Partly</span></td><td><span class="mk p" data-i18n="cmp.part">Partly</span></td></tr>
+            <tr><th scope="row" data-i18n="cmp.r6">Pick your own API and model</th><td class="us"><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">Yes</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">No</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">No</span></td><td><span class="mk p" data-i18n="cmp.part">Partly</span></td></tr>
+            <tr><th scope="row" data-i18n="cmp.r7">Open source and free</th><td class="us"><span class="mk y" aria-hidden="true">✓</span><span class="sr" data-i18n="cmp.yes">Yes</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">No</span></td><td><span class="mk n" aria-hidden="true">✗</span><span class="sr" data-i18n="cmp.no">No</span></td><td><span class="mk p" data-i18n="cmp.part">Partly</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fine" data-i18n="cmp.foot">Based on the common, publicly available forms of each approach, not on any specific product.</p>
+    </div>
+
+    <p class="sec-next rv"><a class="link-arrow" href="#how"><span data-i18n="read.next">Next: how it works</span><svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+  </div>
+</section>
+
+<!-- ===================== 02 怎么工作 ===================== -->
+<section class="sec sec-tint" id="how" aria-labelledby="how-title">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><b>02</b><span data-i18n="how.kicker">How it works</span></p>
+      <h2 id="how-title" data-i18n="how.title">From a message on screen to a line in your input box</h2>
+      <p class="lead" data-i18n="how.lead">Only these steps in between. Solid steps run on your phone; dashed ones go to the endpoints you configure yourself.</p>
+    </header>
+
+    <div class="flow-wrap rv">
+      <p class="flow-legend"><span class="lg lg-local"><i></i><span data-i18n="how.local">On your phone</span></span><span class="lg lg-remote"><i></i><span data-i18n="how.remote">Sent to your configured API</span></span></p>
+      <ol class="flow">
+        <li class="fn local"><span class="fn-no">1</span><h3 data-i18n="how.n1.t">Read the screen</h3><p data-i18n="how.n1.d">The accessibility service reads the open chat; if the text isn't there, it takes a screenshot and runs offline OCR</p></li>
+        <li class="fn remote"><span class="fn-no">2</span><h3 data-i18n="how.n2.t">Jev judges</h3><p data-i18n="how.n2.d">Intent · danger level 0–9 · reply with substance now or not</p></li>
+        <li class="fn remote"><span class="fn-no">3</span><h3 data-i18n="how.n3.t">A text model drafts</h3><p data-i18n="how.n3.d">Three casual replies: a safe follow-up, one with an action or commitment, and a short response. DeepSeek via OpenRouter by default</p></li>
+        <li class="fn remote"><span class="fn-no">4</span><h3 data-i18n="how.n4.t">Jev ranks</h3><p data-i18n="how.n4.d">Reorders them by fit and shows probabilities</p></li>
+        <li class="fn local"><span class="fn-no">5</span><h3 data-i18n="how.n5.t">Overlay shows</h3><p data-i18n="how.n5.d">The read plus three replies, right next to the chat</p></li>
+        <li class="fn local fn-end"><span class="fn-no">6</span><h3 data-i18n="how.n6.t">Copy / fill</h3><p data-i18n="how.n6.d"><strong>Never sends.</strong> You press send.</p></li>
+      </ol>
+    </div>
+
+    <div class="feat-grid">
+      <article class="feat rv"><span class="feat-ico"><svg width="22" height="22" aria-hidden="true"><use href="#i-book"/></svg></span><h3 data-i18n="how.f1.t">Notes and contact context</h3><p data-i18n="how.f1.d">Keep notes and contact profiles (relationship, aliases, notes) on the phone. Pinned notes go with every request; the rest are picked up when their tags or titles match the current chat. Turn on history and the person's recent messages come along too. Replies are prompted to stay consistent with your notes and not to make up facts outside them. A contact can be linked across apps.</p></article>
+      <article class="feat rv"><span class="feat-ico"><svg width="22" height="22" aria-hidden="true"><use href="#i-scan"/></svg></span><h3 data-i18n="how.f2.t">OCR when text is missing</h3><p data-i18n="how.f2.d">When the accessibility tree has no message text, it takes a screenshot and runs ML Kit's offline Chinese OCR. No image is uploaded and no Google services are needed. In any app you can also trigger a one-off screen OCR from the floating-bubble menu.</p></article>
+      <article class="feat rv"><span class="feat-ico"><svg width="22" height="22" aria-hidden="true"><use href="#i-plug"/></svg></span><h3 data-i18n="how.f3.t">Bring your own endpoints</h3><p data-i18n="how.f3.d">Set the URL, key and model separately for the judge, reply and vision endpoints. Presets for OpenRouter, Bocha Jev, TypeSafe direct, DeepSeek official and Qwen-compatible APIs, each with a one-tap connection test. One OpenRouter key is enough to start.</p></article>
+      <article class="feat rv"><span class="feat-ico"><svg width="22" height="22" aria-hidden="true"><use href="#i-core"/></svg></span><h3 data-i18n="how.f4.t">One core, many apps</h3><p data-i18n="how.f4.d">Judging, drafting, ranking and filling share one core. Supporting a new app takes one adapter of a few dozen lines; everything else is reused.</p></article>
+    </div>
+
+    <p class="sec-next rv"><a class="link-arrow" href="#privacy"><span data-i18n="how.next">Next: where your chat text goes</span><svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+  </div>
+</section>
+
+<!-- ===================== 03 数据去向 ===================== -->
+<section class="sec" id="privacy" aria-labelledby="priv-title">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><b>03</b><span data-i18n="priv.kicker">Your data</span></p>
+      <h2 id="priv-title" data-i18n="priv.title">It reads your chats, so here is exactly what happens</h2>
+      <p class="lead" data-i18n="priv.lead">This is not a “collects nothing” app. Chat text does go to a model endpoint, but you are the one who sets that address. Everything else stays on your phone.</p>
+    </header>
+
+    <div class="bound rv">
+      <div class="bd-box bd-phone">
+        <p class="bd-h"><svg width="20" height="20" aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="priv.d.phone">Your phone</span></p>
+        <ul>
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#i-eye"/></svg><span data-i18n="priv.d.p1">Reads the chat on screen</span></li>
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#i-scan"/></svg><span data-i18n="priv.d.p2">Screenshots OCR'd on device, never uploaded</span></li>
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#i-lock"/></svg><span data-i18n="priv.d.p3">Keys, notes and history (off by default) stay local</span></li>
+        </ul>
+      </div>
+      <div class="bd-link">
+        <p class="bd-when" data-i18n="priv.d.when">Only when it analyzes</p>
+        <span class="bd-arrow" aria-hidden="true"></span>
+        <p class="bd-what" data-i18n="priv.d.what">The last 10 messages of this chat + your relationship note; matched notes and this person's history only if you turned them on</p>
+      </div>
+      <div class="bd-box bd-api">
+        <p class="bd-h"><svg width="20" height="20" aria-hidden="true"><use href="#i-cloud"/></svg><span data-i18n="priv.d.api">The model endpoint you configured</span></p>
+        <p class="bd-list" data-i18n="priv.d.apiList">OpenRouter · Bocha Jev · TypeSafe · DeepSeek · Qwen · any OpenAI-compatible URL</p>
+      </div>
+      <div class="bd-box bd-none">
+        <p class="bd-h"><svg width="20" height="20" aria-hidden="true"><use href="#i-ban"/></svg><s data-i18n="priv.d.none">The author's server</s></p>
+        <p data-i18n="priv.d.noneD">Not in the loop: the author runs no server and never handles your chats</p>
+      </div>
+    </div>
+
+    <dl class="qa rv">
+      <div class="qa-row"><dt><svg width="18" height="18" aria-hidden="true"><use href="#i-eye"/></svg><span data-i18n="priv.q1">What it reads</span></dt><dd data-i18n="priv.a1">Only the conversation on screen, through Android's accessibility service. It doesn't modify any app's package, doesn't use their APIs or accounts, and doesn't read databases. You can limit it to an allowlist of chats, or turn off auto-analysis so it only reads when you tap.</dd></div>
+      <div class="qa-row"><dt><svg width="18" height="18" aria-hidden="true"><use href="#i-cloud"/></svg><span data-i18n="priv.q2">Where it goes</span></dt><dd data-i18n="priv.a2">Only at the moment of judging, and only to the endpoint you configured. The author runs no server and never handles your chats. What the provider does with the data is governed by its own privacy policy.</dd></div>
+      <div class="qa-row"><dt><svg width="18" height="18" aria-hidden="true"><use href="#i-lock"/></svg><span data-i18n="priv.q3">Where it's stored</span></dt><dd data-i18n="priv.a3">Keys live only in the app's private storage. Chat text isn't written to disk or logs after sending. History is off by default and stays on the phone if you turn it on. OCR uses ML Kit's offline Chinese model; images are never uploaded.</dd></div>
+      <div class="qa-row"><dt><svg width="18" height="18" aria-hidden="true"><use href="#i-trash"/></svg><span data-i18n="priv.q4">How to delete</span></dt><dd data-i18n="priv.a4">In Settings, “清空知识库与历史” (clear notes and history) removes them in one tap. Uninstalling wipes everything, including keys and settings. There is no cloud backup.</dd></div>
+      <div class="qa-row"><dt><svg width="18" height="18" aria-hidden="true"><use href="#i-hand"/></svg><span data-i18n="priv.q5">What it never does</span></dt><dd data-i18n="priv.a5">It never sends messages on its own, never touches transfers, red packets or payments, and has no ads and no third-party analytics SDKs.</dd></div>
+    </dl>
+
+    <div class="priv-cta rv">
+      <a class="btn btn-ghost" href="privacy.html#en-summary" data-privacy-link data-umami-event="view-privacy" data-umami-event-pos="privacy"><svg width="18" height="18" aria-hidden="true"><use href="#i-shield"/></svg><span data-i18n="priv.cta">Full privacy policy (Chinese, with an English summary)</span></a>
+      <p class="fine" data-i18n="priv.src">Every point can be checked against the source code on GitHub.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 04 支持的 App ===================== -->
+<section class="sec sec-tint" id="apps" aria-labelledby="apps-title">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><b>04</b><span data-i18n="apps.kicker">Supported apps</span></p>
+      <h2 id="apps-title" data-i18n="apps.title">Where it works today</h2>
+      <p class="lead" data-i18n="apps.lead">Based on real-device tests; version numbers are the ones tested.</p>
+    </header>
+
+    <div class="apps-grid">
+      <div class="apps-main rv">
+        <div class="apps-top">
+          <p class="plat"><svg width="22" height="22" aria-hidden="true"><use href="#i-phone"/></svg><b>Android</b><span class="ver">v1.4</span></p>
+        </div>
+        <table class="st">
+          <thead><tr><th scope="col" data-i18n="apps.h1">App</th><th scope="col" data-i18n="apps.h2">Status</th><th scope="col" data-i18n="apps.h3">Notes</th></tr></thead>
+          <tbody>
+            <tr><th scope="row" data-i18n="apps.qq">QQ Android</th><td><span class="state ok" data-i18n="apps.qq.s">Full flow</span></td><td data-i18n="apps.qq.d">Tested on 9.3.50</td></tr>
+            <tr><th scope="row" data-i18n="apps.x">X / Twitter DMs</th><td><span class="state ok" data-i18n="apps.x.s">Full flow</span></td><td data-i18n="apps.x.d">Tested on 12.25, Chinese interface</td></tr>
+            <tr><th scope="row" data-i18n="apps.lark">Feishu / Lark</th><td><span class="state ocr" data-i18n="apps.lark.s">OCR fallback</span></td><td data-i18n="apps.lark.d">Verified on a real device; message text via offline OCR</td></tr>
+            <tr><th scope="row" data-i18n="apps.any">Any other app</th><td><span class="state ocr" data-i18n="apps.any.s">Manual</span></td><td data-i18n="apps.any.d">One-off screen OCR from the bubble menu</td></tr>
+            <tr><th scope="row" data-i18n="apps.web">Web</th><td><span class="state plan" data-i18n="apps.web.s">Planned</span></td><td data-i18n="apps.web.d">No web version yet</td></tr>
+            <tr><th scope="row" data-i18n="apps.ios">iOS</th><td><span class="state no" data-i18n="apps.ios.s">Not yet</span></td><td data-i18n="apps.ios.d">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 05 开始使用 ===================== -->
+<section class="sec" id="start" aria-labelledby="start-title">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><b>05</b><span data-i18n="start.kicker">Get started</span></p>
+      <h2 id="start-title" data-i18n="start.title">Get Jev for your platform</h2>
+      <p class="lead" data-i18n="start.lead">Choose the platform that fits you. Find installers, setup guides, and updates on the GitHub project page.</p>
+    </header>
+
+    <div class="platform-grid">
+      <article class="platform-card rv">
+        <p class="plat"><svg width="20" height="20" aria-hidden="true"><use href="#i-phone"/></svg><b>Android</b><span class="ver">v1.4</span></p>
+        <p data-i18n="platform.android.d">A chat copilot on your phone: reads messages, drafts replies, and fills the one you pick into the input box.</p>
+        <p class="req" data-i18n="platform.android.req">Android 11+ · arm64-v8a</p>
+        <a class="btn btn-primary" href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="platform" data-umami-event-intent="android"><svg width="18" height="18" aria-hidden="true"><use href="#i-github"/></svg><span data-i18n="hero.dl">Get Jev on GitHub</span></a>
+      </article>
+      <article class="platform-card rv">
+        <p class="plat"><svg width="20" height="20" aria-hidden="true"><use href="#i-monitor"/></svg><b>Windows</b><span class="ver">v0.1.11</span></p>
+        <p data-i18n="apps.win.d">Captures your own chat window and runs OCR locally. No client changes, no database reads.</p>
+        <p class="req" data-i18n="apps.win.req">Windows 10 1903+ / 11</p>
+        <a class="btn btn-primary" href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="platform" data-umami-event-intent="windows"><svg width="18" height="18" aria-hidden="true"><use href="#i-github"/></svg><span data-i18n="hero.dl">Get Jev on GitHub</span></a>
+      </article>
+      <article class="platform-card rv">
+        <p class="plat"><svg width="20" height="20" aria-hidden="true"><use href="#i-laptop"/></svg><b>macOS</b><span class="ver">v0.6.0</span></p>
+        <p data-i18n="apps.mac.d">Watches the screen and uses a small local model to judge intent and risk level, then drafts replies in a chosen style and ranks them locally.</p>
+        <p class="req" data-i18n="apps.mac.req">Apple Silicon · macOS 13+</p>
+        <a class="btn btn-primary" href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="platform" data-umami-event-intent="macos"><svg width="18" height="18" aria-hidden="true"><use href="#i-github"/></svg><span data-i18n="hero.dl">Get Jev on GitHub</span></a>
+      </article>
+    </div>
+    <p class="platform-star"><span data-i18n="platform.star">If Jev helps you, consider starring the GitHub project to support its maintenance.</span> <b data-jev-stars>6.7k</b> Star</p>
+    <h3 class="install-title" data-i18n="start.steps">Android setup</h3>
+
+    <ol class="steps">
+      <li class="step rv">
+        <span class="step-no">1</span>
+        <h3 data-i18n="s1.t">Install</h3>
+        <p data-i18n="s1.d">Get the APK from the GitHub project page and install it. Android 11+, arm64-v8a devices only. Or use adb:</p>
+        <div class="code">
+          <pre id="adbCmd">adb install -r jev-assistant-v1.4-release.apk</pre>
+          <button aria-label="Copy the install command" class="code-copy" type="button" data-copy-from="#adbCmd" data-umami-event="copy-adb" data-i18n-attr="aria-label:a.copy">
+            <svg class="ico-copy" width="15" height="15" aria-hidden="true"><use href="#i-copy"/></svg><svg class="ico-done" width="15" height="15" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="ui.copy">Copy</span>
+          </button>
+        </div>
+        <a class="btn btn-primary" href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="start" data-umami-event-intent="android"><svg width="18" height="18" aria-hidden="true"><use href="#i-github"/></svg><span data-i18n="hero.dl">Get Jev on GitHub</span></a>
+        <p class="fine" data-i18n="s1.note">After upgrading from an older version, switch accessibility off and on again in system settings so the service rebinds.</p>
+      </li>
+
+      <li class="step rv">
+        <span class="step-no">2</span>
+        <h3 data-i18n="s2.t">Add a key</h3>
+        <p data-i18n="s2.d">Settings → 接口 (Endpoints) → put an OpenRouter API key in the judge endpoint. Leave the others blank and they inherit it. Each endpoint has a one-tap connection test.</p>
+        <div class="sch" aria-hidden="true">
+          <span class="sch-tag" data-i18n="sch.tag">Sketch</span>
+          <div class="sch-row sch-on"><span class="sch-k" data-i18n="sch.judge">Judge endpoint (Jev)</span><span class="sch-v" data-i18n="sch.judgeV">OpenRouter · sk-or-••••</span><span class="sch-btn" data-i18n="sch.test">Test</span></div>
+          <div class="sch-row"><span class="sch-k" data-i18n="sch.reply">Reply endpoint</span><span class="sch-v sch-mute" data-i18n="sch.inherit">Blank = inherit</span><span class="sch-btn" data-i18n="sch.test">Test</span></div>
+          <div class="sch-row"><span class="sch-k" data-i18n="sch.vision">Vision endpoint</span><span class="sch-v sch-mute" data-i18n="sch.inherit">Blank = inherit</span><span class="sch-btn" data-i18n="sch.test">Test</span></div>
+        </div>
+        <p class="fine" data-i18n="s2.tip">The judge endpoint also has a “Bocha Jev” preset, free for a limited time; get a key at <a href='https://jev.bocha.cn' target='_blank' rel='noopener'>jev.bocha.cn</a>.</p>
+      </li>
+
+      <li class="step rv">
+        <span class="step-no">3</span>
+        <h3 data-i18n="s3.t">Grant permissions</h3>
+        <p data-i18n="s3.d">Accessibility, display over other apps, autostart and unrestricted battery. On Xiaomi / HyperOS the last two are a must, or the bubble gets frozen.</p>
+        <ul class="perm">
+          <li><span data-i18n="s3.p1">Accessibility service</span><i class="tog" aria-hidden="true"></i></li>
+          <li><span data-i18n="s3.p2">Display over other apps</span><i class="tog" aria-hidden="true"></i></li>
+          <li><span data-i18n="s3.p3">Autostart + unrestricted battery</span><i class="tog" aria-hidden="true"></i></li>
+        </ul>
+      </li>
+    </ol>
+
+    <p class="start-star rv"><svg width="18" height="18" aria-hidden="true"><use href="#i-github"/></svg><span data-i18n="start.star"><a href='https://github.com/jev-chat/jev-chat-jarvis' target='_blank' rel='noopener' data-umami-event='go-main-repo' data-umami-event-pos='start-tutorial' data-umami-event-intent='tutorial'>Setup guide</a> · <a href='https://github.com/jev-chat/jev-chat-jarvis' target='_blank' rel='noopener' data-umami-event='go-main-repo' data-umami-event-pos='start-community' data-umami-event-intent='community'>Community and updates on GitHub</a></span></p>
+  </div>
+</section>
+
+<!-- ===================== 06 常见问题 + 已知限制 ===================== -->
+<section class="learning-guides" id="guides" aria-labelledby="guides-title">
+  <div class="wrap">
+    <h2 id="guides-title" data-i18n="learn.title">Practical guides</h2>
+    <p data-i18n="learn.intro">Setup steps and examples you can refer to when using the project.</p>
+    <div class="guide-cards">
+      <article><h3><a href="guides/android-setup.en.html" data-i18n="learn.1.title" data-i18n-attr="href:learn.1.url" data-umami-event="read-guide" data-umami-event-guide="one">Set up Jev Chat Assistant: choose a platform and generate your first reply options</a></h3><p data-i18n="learn.1.desc">A practical Android setup guide covering model endpoints, accessibility, overlay permissions, costs and where chat data goes. Desktop editions have separate instructions.</p></article>
+      <article><h3><a href="guides/review-ai-replies.en.html" data-i18n="learn.2.title" data-i18n-attr="href:learn.2.url" data-umami-event="read-guide" data-umami-event-guide="two">How to review an AI-written reply before sending it</a></h3><p data-i18n="learn.2.desc">Use a clearly fictional conversation to check captured text, uncertain interpretations, invented facts and commitments before turning an AI candidate into your own message.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-tint" id="faq" aria-labelledby="faq-title">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><b>06</b><span data-i18n="faq.kicker">FAQ</span></p>
+      <h2 id="faq-title" data-i18n="faq.title">Before you install</h2>
+    </header>
+
+    <div class="faq-grid">
+      <div class="faq rv">
+        <details id="faq-q1"><summary><span data-i18n="faq.q1">Will it send messages for me?</span><i class="acc" aria-hidden="true"></i></summary><div class="faq-a"><p data-i18n="faq.a1">No. It only fills the reply into the input box. It never sends anything on its own and never touches transfers, red packets or payments. Whether to send, and what to change first, is your call.</p></div></details>
+        <details id="faq-q2"><summary><span data-i18n="faq.q2">Is my chat uploaded?</span><i class="acc" aria-hidden="true"></i></summary><div class="faq-a"><p data-i18n="faq.a2">Only at the moment of judging: the recent messages on screen and your relationship note go to the endpoint you configured (plus matched notes and contact notes if the knowledge base is on, and this person's recent history if history is on). Nothing is written to disk or logs afterwards, and the author runs no server and never handles it. Keys live only in the app's private storage. History is off by default and stays on the phone if you turn it on. OCR uses ML Kit's offline Chinese model; images are never uploaded. <a href='privacy.html#en-summary' data-umami-event='view-privacy' data-umami-event-pos='faq'>Full privacy policy (Chinese, with an English summary)</a></p></div></details>
+        <details id="faq-q3"><summary><span data-i18n="faq.q3">Which API keys do I need?</span><i class="acc" aria-hidden="true"></i></summary><div class="faq-a"><p data-i18n="faq.a3">One OpenRouter API key is enough: put it in the judge endpoint and leave the reply and vision endpoints blank to inherit it. You can also set all three separately, with presets for OpenRouter, Bocha Jev, TypeSafe direct, DeepSeek official and Qwen-compatible APIs, each with a one-tap connection test. The Bocha Jev preset for the judge endpoint is free for a limited time; keys are at jev.bocha.cn.</p></div></details>
+        <details id="faq-q4"><summary><span data-i18n="faq.q4">Does it cost anything?</span><i class="acc" aria-hidden="true"></i></summary><div class="faq-a"><p data-i18n="faq.a4">The app is free and open source. Model calls use your own API keys and are billed by the provider for what you use; the project never handles any money.</p></div></details>
+        <details id="faq-q5"><summary><span data-i18n="faq.q5">Do I need root?</span><i class="acc" aria-hidden="true"></i></summary><div class="faq-a"><p data-i18n="faq.a5">No root and no modules. It is non-invasive: it only reads the conversation on screen, doesn't modify any app's package, and doesn't use their APIs or accounts.</p></div></details>
+        <details id="faq-q6"><summary><span data-i18n="faq.q6">iOS or desktop?</span><i class="acc" aria-hidden="true"></i></summary><div class="faq-a"><p data-i18n="faq.a6">No iOS for now. The <a href='https://github.com/jev-chat/jev-chat-jarvis' target='_blank' rel='noopener' data-umami-event='go-main-repo' data-umami-event-pos='faq' data-umami-event-intent='get'>GitHub project page</a> lists Android, Windows, and macOS; each platform is maintained independently. A web version is planned but doesn't exist yet.</p></div></details>
+        <details id="faq-q7"><summary><span data-i18n="faq.q7">The bubble disappeared, or it can't read messages?</span><i class="acc" aria-hidden="true"></i></summary><div class="faq-a"><p data-i18n="faq.a7">Usually the Android skin froze the app in the background. Check that accessibility, display over other apps, autostart and unrestricted battery are all on, especially the last two on Xiaomi / HyperOS. Reinstalling resets the overlay permission, so turn it on again from the home-screen guide. Tapping anywhere in the chat usually brings it back.</p></div></details>
+        <details id="faq-q8"><summary><span data-i18n="faq.q8">Nothing happens after an upgrade?</span><i class="acc" aria-hidden="true"></i></summary><div class="faq-a"><p data-i18n="faq.a8">Switch accessibility off and on again in system settings. Version 1.3 added screen capture, and the service has to rebind before it works.</p></div></details>
+        <p class="faq-more" data-i18n="faq.more">Didn't find your answer? <a href='https://github.com/jev-chat/jev-chat-jarvis/issues' target='_blank' rel='noopener' data-umami-event='click-issues' data-umami-event-pos='faq'>Open an issue</a> or <a href='https://github.com/jev-chat/jev-chat-jarvis' target='_blank' rel='noopener' data-umami-event='go-main-repo' data-umami-event-pos='faq-community' data-umami-event-intent='community'>find community options on GitHub</a>.</p>
+      </div>
+
+      <aside class="lim rv" aria-labelledby="lim-title">
+        <h3 id="lim-title"><svg width="20" height="20" aria-hidden="true"><use href="#i-alert"/></svg><span data-i18n="lim.title">Known limitations</span></h3>
+        <p class="lim-lead" data-i18n="lim.lead">Worth knowing before you install.</p>
+        <ul>
+          <li data-i18n="lim.1">Jev was trained mainly on English, so judgments on Chinese chats vary. The questions are calibrated on conflicts in close relationships; group and work chats are less accurate.</li>
+          <li data-i18n="lim.2">Group chats are analyzed as one-to-one, so crossed conversations throw it off.</li>
+          <li data-i18n="lim.3">Judgments are probabilities, not verdicts. Treat them as a reference.</li>
+          <li data-i18n="lim.4">Some Android skins freeze background apps, so the bubble can briefly disappear. Autostart and unrestricted battery help.</li>
+          <li data-i18n="lim.5">X / Twitter has only been verified with the Chinese interface.</li>
+          <li data-i18n="lim.6">OCR only sees what's on screen: cut-off parts of long messages are missed, and it sometimes misreads characters.</li>
+          <li data-i18n="lim.7">Notes are matched by tag or title, not by meaning, so tag them well.</li>
+          <li data-i18n="lim.8">The APK is about 25 MB (it bundles the offline Chinese OCR model) and runs on arm64 devices only.</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 联系与交流 ===================== -->
+<section class="sec" id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <header class="sec-head rv">
+      <p class="kicker"><b>07</b><span data-i18n="contact.kicker">Contact</span></p>
+      <h2 id="contact-title" data-i18n="contact.title">Questions, ideas, or an app you want supported</h2>
+    </header>
+
+    <div class="contact-grid">
+      <article class="cc rv">
+        <span class="cc-ico"><svg width="22" height="22" aria-hidden="true"><use href="#i-chat"/></svg></span>
+        <h3 data-i18n="grp.t">Community and updates</h3>
+        <p data-i18n="grp.d">Find the Chinese official account and group chat on the GitHub project page, where group QR codes are updated.</p>
+        <a class="link-arrow" href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="contact" data-umami-event-intent="community"><span data-i18n="grp.link">Community and updates on GitHub</span><svg width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="cc rv">
+        <span class="cc-ico"><svg width="22" height="22" aria-hidden="true"><use href="#i-github"/></svg></span>
+        <h3 data-i18n="iss.t">GitHub Issues</h3>
+        <p data-i18n="iss.d">Bugs, an app it can't read, requests for a new app: Issues keep them trackable.</p>
+        <a class="link-arrow" href="https://github.com/jev-chat/jev-chat-jarvis/issues" target="_blank" rel="noopener" data-umami-event="click-issues" data-umami-event-pos="contact"><span data-i18n="iss.link">Open an issue</span><svg width="15" height="15" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 收尾 ===================== -->
+<section class="end" aria-labelledby="end-title">
+  <div class="wrap end-in rv">
+    <h2 id="end-title" data-i18n="end.title">Choose your platform for your next chat copilot</h2>
+    <p class="end-meta"><span data-i18n="end.license">Open source, MIT</span> · Android <span>v1.4</span> · Windows <span>v0.1.11</span> · macOS <span>v0.6.0</span></p>
+    <div class="end-cta">
+      <a class="btn btn-light btn-lg" href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="closing" data-umami-event-intent="get"><svg width="19" height="19" aria-hidden="true"><use href="#i-github"/></svg><span data-i18n="hero.dl">Get Jev on GitHub</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a aria-label="Jev Chat Assistant home" class="brand" href="#top" data-i18n-attr="aria-label:a.brand"><img src="assets/favicon.svg" alt="" width="26" height="26"><span class="brand-name" data-i18n="brand.name">Jev Chat Assistant</span></a>
+      <p data-i18n="ft.tag">Your chat copilot. Reads the other person, suggests three replies, fills one in.</p>
+    </div>
+    <nav class="foot-col" aria-labelledby="ft-p">
+      <h2 id="ft-p" data-i18n="ft.product">Product</h2>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="footer" data-umami-event-intent="get" data-i18n="ft.apk">Get Jev on GitHub</a>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="footer-windows" data-umami-event-intent="windows" data-i18n="ft.win">Windows version</a>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="footer-macos" data-umami-event-intent="macos" data-i18n="ft.mac">macOS version</a>
+      <a href="#start" data-i18n="nav.start">Get started</a>
+      <a href="#apps" data-i18n="nav.apps">Supported apps</a>
+    </nav>
+    <nav class="foot-col" aria-labelledby="ft-r">
+      <h2 id="ft-r" data-i18n="ft.resources">Resources</h2>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="footer-github" data-umami-event-intent="get">GitHub</a>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="footer-tutorial" data-umami-event-intent="tutorial" data-i18n="ft.readme">Setup guide (Chinese)</a>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis/blob/main/CHANGELOG.md" target="_blank" rel="noopener" data-umami-event="click-github" data-umami-event-pos="footer-changelog" data-i18n="ft.changelog">Changelog (Chinese)</a>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis/issues" target="_blank" rel="noopener" data-umami-event="click-issues" data-umami-event-pos="footer">Issues</a>
+      <a href="privacy.html#en-summary" data-privacy-link data-umami-event="view-privacy" data-umami-event-pos="footer" data-i18n="ft.privacy">Privacy policy (Chinese)</a>
+    </nav>
+    <nav class="foot-col" aria-labelledby="ft-c">
+      <h2 id="ft-c" data-i18n="ft.community">Community</h2>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="footer-community" data-umami-event-intent="community" data-i18n="ft.mp">Community and updates</a>
+      <a href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener" data-umami-event="go-main-repo" data-umami-event-pos="footer-group" data-umami-event-intent="community" data-i18n="ft.group">Group chat / requests</a>
+    </nav>
+  </div>
+  <div class="wrap"><div class="foot-bottom">
+    <p data-i18n="learn.sister">Another open-source project by the author: <a href='https://brewreel.com/en.html' data-umami-event='click-sister' data-umami-event-project='brewreel'>BrewReel — AI-assisted promo video production</a>.</p>
+    <p class="language-links"><a href="./?lang=zh" hreflang="zh-CN" lang="zh-CN">简体中文</a> · <a href="en.html" hreflang="en" lang="en">English</a> · <a href="llms.txt" data-i18n="facts.text">Project facts (text)</a></p>
+
+    <p data-i18n="ft.copy">© 2026 Jev Chat Assistant · <a href='https://github.com/jev-chat/jev-chat-jarvis/blob/main/LICENSE' target='_blank' rel='noopener'>MIT</a> open source · commercial use allowed with attribution (<a href='https://github.com/jev-chat/jev-chat-jarvis/blob/main/NOTICE' target='_blank' rel='noopener'>NOTICE</a>) · <a href='privacy.html#en-summary' data-umami-event='view-privacy' data-umami-event-pos='footer-legal'>Privacy policy (Chinese)</a></p>
+    <p class="fine" data-i18n="ft.legal">For personal study and research only. Use it only on your own device, with chats you have the right to view, and follow each app's license terms and local laws.</p>
+  </div>
+  </div>
+</footer>
+
+<p class="sr" id="live" aria-live="polite"></p>
+</body>
+</html>
